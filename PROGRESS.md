@@ -14,7 +14,8 @@ This file tracks the project across Claude Code sessions. The game idea lives in
 **Phase:** Building. A first full version of the game is built and committed: create/join rooms, lobby, first-player wheel, turns, timer, host menu, end screen, and reconnecting. Two scripted browser runs pass (a normal 3-player game, and the tricky cases: endless mode, 8 players, someone leaving, removing players, joining by link, wrong room codes). It has **not** been played by real people yet.
 
 **How to run:** `./dev.sh` starts both, then open http://localhost:5173. Backend tests: `cd backend && uv run pytest`.
-Browser tests (with the app running): `uv run --with playwright python tests/browser/full_game.py` and `tricky_cases.py`. They drive Chrome as several players and save screenshots to `tests/browser/shots/`.
+Browser tests (with the app running): `uv run --with playwright python tests/browser/full_game.py` and `tricky_cases.py`. They drive Chrome as several players and save screenshots to `tests/browser/shots/`. Set `URL=...` to test somewhere other than localhost:5173 (like the live site).
+**Hosting:** Render, paid Starter plan, one Docker service (`Dockerfile` + `render.yaml`). The image builds the frontend, then runs the backend, which serves it. Auto-deploy is off on purpose: a deploy restarts the server and ends any games in progress, so deploy by hand when nobody's playing. Test the image locally with `docker build -t katakanashi . && docker run -p 8765:8000 katakanashi`.
 - `frontend/`: Vue + Vite. In dev, Vite passes `/api` and `/ws` through to the backend.
 - `backend/`: FastAPI, managed with `uv`. Code is in `backend/app/`, tests in `backend/tests/`.
 
@@ -45,11 +46,9 @@ Mockups live in `mockups/`:
 
 ## Next up
 
-1. Decide on hosting (see "Open questions"), and get it online, so friends can reach it.
+1. User creates the Render service from `render.yaml` (Blueprint) and does the first deploy. Then run the browser tests against the live URL.
 2. User playtests with friends and gives feedback.
 3. Custom player and UI icons.
-
-Note: a few small commits are local only. Push them along with the next bigger change.
 
 ## Feedback and decisions waiting to be built
 
@@ -80,7 +79,6 @@ Everything in this section is already shown in mockup C2 unless it says otherwis
 ## Open questions
 
 - **Real word list:** the user owns the physical card game, but copying the words out of it could be a chore. For now, use a small made-up set and come back to this later.
-- **Hosting:** where will it run online? (Decide later. SQLite is fine for now.)
 
 ## Standing rules
 
@@ -92,6 +90,7 @@ These stay true for the whole project.
 - **The server is the referee.** It holds the deck, the turn order, and the timer. Browsers only send requests ("I drew", "give the card to X"). The server checks them and tells everyone the result.
 - **Each player gets their own view.** The server builds what each player sees, so only the describer ever receives the card's words.
 - Rooms live in the server's memory for now. Add SQLite only when we need it.
+- **Only ever run one copy of the server.** Rooms live in memory, so a second copy wouldn't know about the first one's rooms. Keep `numInstances: 1` in `render.yaml`.
 
 ## Session log
 
@@ -103,3 +102,4 @@ These stay true for the whole project.
 - **2026-10-06:** End screen ties: tied players share one podium step (same height, "TIE!" sticker), places count like sports (1st, 1st, 3rd), ties are grouped in the list below, and if everyone ties it shows "IT'S A TIE!" with everyone bouncing on one long gold step.
 - **2026-10-06:** Added floating katakana (カ, タ, ナ, シ) to the background, alongside the shapes.
 - **2026-10-06:** New favicon: a pink カ on a plain rounded teal square (table color 2). Updated the README with a screenshot.
+- **2026-10-06:** Picked Render (paid plan) for hosting. Added a `Dockerfile`, `.dockerignore`, and `render.yaml`. Both browser tests pass against the Docker image.

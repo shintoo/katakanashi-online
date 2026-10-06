@@ -1,9 +1,10 @@
+import os
 import sys
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
-URL = "http://localhost:5173"
+URL = os.environ.get("URL", "http://localhost:5173")
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else Path(__file__).parent / "shots" / Path(__file__).stem)
 OUT.mkdir(parents=True, exist_ok=True)
 errors = []
