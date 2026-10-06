@@ -5,3 +5,4 @@ __pycache__/
 .pytest_cache/
 *.db
 .converted-md.html
+tests/browser/shots/

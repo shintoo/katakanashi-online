@@ -14,6 +14,7 @@ This file tracks the project across Claude Code sessions. The game idea lives in
 **Phase:** Building. A first full version of the game is built and committed: create/join rooms, lobby, first-player wheel, turns, timer, host menu, end screen, and reconnecting. Two scripted browser runs pass (a normal 3-player game, and the tricky cases: endless mode, 8 players, someone leaving, removing players, joining by link, wrong room codes). It has **not** been played by real people yet, and it hasn't been pushed to GitHub yet.
 
 **How to run:** `./dev.sh` starts both, then open http://localhost:5173. Backend tests: `cd backend && uv run pytest`.
+Browser tests (with the app running): `uv run --with playwright python tests/browser/full_game.py` and `tricky_cases.py`. They drive Chrome as several players and save screenshots to `tests/browser/shots/`.
 - `frontend/`: Vue + Vite. In dev, Vite passes `/api` and `/ws` through to the backend.
 - `backend/`: FastAPI, managed with `uv`. Code is in `backend/app/`, tests in `backend/tests/`.
 
