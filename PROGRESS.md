@@ -45,8 +45,11 @@ Mockups live in `mockups/`:
 
 ## Next up
 
-1. User playtests with friends and gives feedback.
-2. Custom player and UI icons. Then decide on hosting.
+1. Decide on hosting (see "Open questions"), and get it online, so friends can reach it.
+2. User playtests with friends and gives feedback.
+3. Custom player and UI icons.
+
+Note: a few small commits are local only. Push them along with the next bigger change.
 
 ## Feedback and decisions waiting to be built
 
@@ -99,3 +102,4 @@ These stay true for the whole project.
 - **2026-10-06:** Ran the second browser test (tricky cases). All checks passed. Fixed three small things it showed: an empty timer circle when there's no time limit (now hidden), the host being told "Waiting for the host" between rounds, and players with 0 cards standing on the podium. Committed the frontend. Saved the browser tests in `tests/browser/` and pushed everything to GitHub.
 - **2026-10-06:** End screen ties: tied players share one podium step (same height, "TIE!" sticker), places count like sports (1st, 1st, 3rd), ties are grouped in the list below, and if everyone ties it shows "IT'S A TIE!" with everyone bouncing on one long gold step.
 - **2026-10-06:** Added floating katakana (カ, タ, ナ, シ) to the background, alongside the shapes.
+- **2026-10-06:** New favicon: a pink カ on a plain rounded teal square (table color 2). Updated the README with a screenshot.
