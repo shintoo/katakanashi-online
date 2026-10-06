@@ -63,7 +63,6 @@ Everything in this section is already shown in mockup C2 unless it says otherwis
   - Big pop-up warnings appear at 20 and 10 seconds.
   - The screen edges glow red in the last 5 seconds.
 - **End screen:** a podium with confetti (idea from mockup A), restyled to match the game show look. "Play again" opens a settings panel in the same room.
-- **How-to-play popup:** reuse the one from mockup B, with its reminder to join voice chat. *(Not in C2 yet.)*
 
 ### Gameplay rules
 - **Refreshing or dropping out:** the browser remembers who the player is, so a refresh or reconnect puts them right back in their seat with their cards. While someone is gone, their turn is skipped. The host can remove a player from the host menu.
@@ -103,3 +102,4 @@ These stay true for the whole project.
 - **2026-10-06:** New favicon: a pink カ on a plain rounded teal square (table color 2). Updated the README with a screenshot.
 - **2026-10-06:** Picked Render (paid plan) for hosting. Added a `Dockerfile`, `.dockerignore`, and `render.yaml`. Both browser tests pass against the Docker image.
 - **2026-10-06:** The user deployed it to Render. Both browser tests pass against the live site.
+- **2026-10-06:** Simplified the how-to-play popup to three big steps (Draw! Explain! Guess!) with one short line each, plus a one-line voice chat reminder.
