@@ -11,7 +11,7 @@ This file tracks the project across Claude Code sessions. The game idea lives in
 
 ## Status
 
-**Phase:** Building. A first full version of the game is built and committed: create/join rooms, lobby, first-player wheel, turns, timer, host menu, end screen, and reconnecting. Two scripted browser runs pass (a normal 3-player game, and the tricky cases: endless mode, 8 players, someone leaving, removing players, joining by link, wrong room codes). It has **not** been played by real people yet, and it hasn't been pushed to GitHub yet.
+**Phase:** Building. A first full version of the game is built and committed: create/join rooms, lobby, first-player wheel, turns, timer, host menu, end screen, and reconnecting. Two scripted browser runs pass (a normal 3-player game, and the tricky cases: endless mode, 8 players, someone leaving, removing players, joining by link, wrong room codes). It has **not** been played by real people yet.
 
 **How to run:** `./dev.sh` starts both, then open http://localhost:5173. Backend tests: `cd backend && uv run pytest`.
 Browser tests (with the app running): `uv run --with playwright python tests/browser/full_game.py` and `tricky_cases.py`. They drive Chrome as several players and save screenshots to `tests/browser/shots/`.
@@ -45,9 +45,8 @@ Mockups live in `mockups/`:
 
 ## Next up
 
-1. Push to GitHub (waiting on the user's OK).
-2. User playtests with friends and gives feedback.
-3. Custom player and UI icons. Then decide on hosting.
+1. User playtests with friends and gives feedback.
+2. Custom player and UI icons. Then decide on hosting.
 
 ## Feedback and decisions waiting to be built
 
@@ -97,4 +96,4 @@ These stay true for the whole project.
 - **2026-10-05:** User reviewed C2 and picked the Desk standee. Decided the category is hidden everywhere (removed it from C2's card), and the game ends if the deck and discard pile both run out (rare, since there will be lots of cards).
 - **2026-10-05:** Decided how players stay connected and how reconnecting works. Set up the Vue + FastAPI project with a run-both script, a health check, and a WebSocket ping test.
 - **2026-10-05/06:** Built the backend (rooms, game rules, live updates, reconnecting, placeholder words) with 31 passing tests, and committed it. Built the whole frontend from the C2 mockup. A scripted 3-player browser run went through the full game; fixed a few small bugs it found ("Waiting for undefined", a leftover warning dot, lobby layout, table showing behind the end screen). Session cut off before the second browser test and before committing the frontend.
-- **2026-10-06:** Ran the second browser test (tricky cases). All checks passed. Fixed three small things it showed: an empty timer circle when there's no time limit (now hidden), the host being told "Waiting for the host" between rounds, and players with 0 cards standing on the podium. Committed the frontend.
+- **2026-10-06:** Ran the second browser test (tricky cases). All checks passed. Fixed three small things it showed: an empty timer circle when there's no time limit (now hidden), the host being told "Waiting for the host" between rounds, and players with 0 cards standing on the podium. Committed the frontend. Saved the browser tests in `tests/browser/` and pushed everything to GitHub.
