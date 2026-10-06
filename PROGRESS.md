@@ -16,7 +16,7 @@ This file tracks the project across Claude Code sessions. The game idea lives in
 **How to run:** `./dev.sh` starts both, then open http://localhost:5173. Backend tests: `cd backend && uv run pytest`.
 Browser tests (with the app running): `uv run --with playwright python tests/browser/full_game.py` and `tricky_cases.py`. They drive Chrome as several players and save screenshots to `tests/browser/shots/`. Set `URL=...` to test somewhere other than localhost:5173 (like the live site).
 **Hosting:** live at https://katakanashi-18es.onrender.com on Render, one Docker service (currently the free instance, which sleeps after ~15 idle minutes and loses rooms; upgrade to the $7 Starter before real playtests) (`Dockerfile` + `render.yaml`). The image builds the frontend, then runs the backend, which serves it. Auto-deploy is off on purpose: a deploy restarts the server and ends any games in progress, so deploy by hand when nobody's playing. Test the image locally with `docker build -t katakanashi . && docker run -p 8765:8000 katakanashi`.
-- `frontend/`: Vue + Vite. In dev, Vite passes `/api` and `/ws` through to the backend.
+- `frontend/`: Vue + Vite. In dev, Vite passes `/api` and `/ws` through to the backend on port 8010 (8000 is taken by another project's Docker setup on this Mac).
 - `backend/`: FastAPI, managed with `uv`. Code is in `backend/app/`, tests in `backend/tests/`.
 
 Mockups live in `mockups/`:
@@ -104,3 +104,4 @@ These stay true for the whole project.
 - **2026-10-06:** The user deployed it to Render. Both browser tests pass against the live site.
 - **2026-10-06:** Simplified the how-to-play popup to three big steps (Draw! Explain! Guess!) with one short line each, plus a one-line voice chat reminder.
 - **2026-10-06:** Room codes now go letter-number-letter-number (like K7P3) so they can't spell rude words. No I/O/0/1, since they look alike.
+- **2026-10-06:** New logo based on the カタカナーシ 2 box (`docs/katakanashi-2-box.jpg`): the word カタカナーシ on one line, green with a blue 3D shadow, on a lemon-yellow panel with white polka dots. Dropped the English "KATAKANASHI!" and the light bulbs. The favicon now matches: a green カ with a blue shadow on the same dotted yellow.

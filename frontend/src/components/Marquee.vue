@@ -4,32 +4,34 @@ defineProps({ big: Boolean })
 
 <template>
   <div class="marquee" :class="{ big }">
-    <div class="bulbs">
-      <template v-for="i in 14" :key="i">
-        <i :style="{ left: ((i - 1) / 13) * 100 + '%', top: '-10px' }"></i>
-        <i :style="{ left: ((i - 1) / 13) * 100 + '%', bottom: '-10px' }"></i>
-      </template>
-    </div>
-    <h1 class="disp">KATAKANASHI!</h1>
-    <div class="sub jp">カタカナシ</div>
+    <h1 class="jp" aria-label="Katakanashi">カタカナーシ</h1>
   </div>
 </template>
 
 <style>
 .marquee {
-  position: relative; background: var(--red); border: 5px solid var(--ink); border-radius: 20px;
-  padding: 6px 30px 10px; box-shadow: 0 7px 0 var(--ink); transform: rotate(-2deg);
+  --lemon: #fff23a;
+  --kana-green: #3fdc5c;
+  --kana-blue: #29aee8;
+  position: relative; border: 5px solid var(--ink); border-radius: 20px;
+  padding: 4px 22px 10px; box-shadow: 0 7px 0 var(--ink); transform: rotate(-2deg);
+  background-color: var(--lemon);
+  background-image:
+    radial-gradient(circle, #fff 0 38%, transparent 40%),
+    radial-gradient(circle, #fff 0 18%, transparent 20%);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
 }
-.marquee h1 { margin: 0; font-size: 40px; color: #fff; -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
-.marquee .sub { color: var(--yellow); font-size: 14px; letter-spacing: 0.3em; text-align: center; margin-top: -4px; }
-.marquee.big { padding: 14px 54px 18px; }
-.marquee.big h1 { font-size: 76px; -webkit-text-stroke: 3px var(--ink); text-shadow: 0 7px 0 var(--ink); }
-.marquee.big .sub { font-size: 24px; }
-.bulbs { position: absolute; inset: 6px; pointer-events: none; }
-.bulbs i {
-  position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #fff6c2;
-  box-shadow: 0 0 6px #fff6a0; animation: blink 1s infinite;
+.marquee h1 {
+  --d: 4px;
+  margin: 0; font-size: 38px; font-weight: 800; line-height: 1.15; white-space: nowrap;
+  color: var(--kana-green); letter-spacing: -0.02em;
+  text-shadow:
+    calc(var(--d) * 0.25) calc(var(--d) * 0.25) 0 var(--kana-blue),
+    calc(var(--d) * 0.5) calc(var(--d) * 0.5) 0 var(--kana-blue),
+    calc(var(--d) * 0.75) calc(var(--d) * 0.75) 0 var(--kana-blue),
+    var(--d) var(--d) 0 var(--kana-blue);
 }
-.bulbs i:nth-child(4n), .bulbs i:nth-child(4n + 1) { animation-delay: 0.5s; }
-@keyframes blink { 50% { background: #a08a3a; box-shadow: none; } }
+.marquee.big { padding: 10px 40px 20px; background-size: 40px 40px; background-position: 0 0, 20px 20px; }
+.marquee.big h1 { --d: 9px; font-size: clamp(44px, 12vw, 92px); }
 </style>

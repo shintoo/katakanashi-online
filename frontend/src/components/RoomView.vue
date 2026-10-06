@@ -94,7 +94,7 @@ async function onEvent(e, s) {
       pod?.classList.remove('got')
       pod?.offsetWidth
       pod?.classList.add('got')
-      shout(['SEIKAI! 正解', 'NICE!', 'BINGO!'][Math.floor(Math.random() * 3)])
+      shout(['正解!', '頭いいね!', 'thugoi'][Math.floor(Math.random() * 3)])
       break
     }
     case 'discarded': {

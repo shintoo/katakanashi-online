@@ -1,9 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="15" fill="#3ecfb2"/>
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(32 32) scale(0.76) translate(-32 -31)">
-    <path d="M15 24 H46 Q50 24 49.5 29 L47.5 46 Q46.5 53 39 50" stroke="#2a1f3d" stroke-width="13"/>
-    <path d="M30 12 Q30 38 15 52" stroke="#2a1f3d" stroke-width="13"/>
-    <path d="M15 24 H46 Q50 24 49.5 29 L47.5 46 Q46.5 53 39 50" stroke="#ff5fa2" stroke-width="6.5"/>
-    <path d="M30 12 Q30 38 15 52" stroke="#ff5fa2" stroke-width="6.5"/>
+  <defs>
+    <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="0" cy="0" r="6" fill="#fff"/>
+      <circle cx="16" cy="0" r="6" fill="#fff"/>
+      <circle cx="0" cy="16" r="6" fill="#fff"/>
+      <circle cx="16" cy="16" r="6" fill="#fff"/>
+      <circle cx="8" cy="8" r="3" fill="#fff"/>
+    </pattern>
+    <g id="ka" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+      <path d="M15 24 H46 Q50 24 49.5 29 L47.5 46 Q46.5 53 39 50"/>
+      <path d="M30 12 Q30 38 15 52"/>
+    </g>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#fff23a"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#dots)"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#2a1f3d" stroke-width="4"/>
+  <g transform="translate(32 32) scale(0.8) translate(-34 -33)">
+    <use href="#ka" stroke="#29aee8" transform="translate(1.5 1.5)"/>
+    <use href="#ka" stroke="#29aee8" transform="translate(3 3)"/>
+    <use href="#ka" stroke="#29aee8" transform="translate(4.5 4.5)"/>
+    <use href="#ka" stroke="#3fdc5c"/>
   </g>
 </svg>

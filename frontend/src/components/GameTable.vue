@@ -44,8 +44,8 @@ const watchTitle = computed(() => {
   return `${name(d)} IS ABOUT TO DRAW`
 })
 const watchSub = computed(() => {
-  if (props.state.phase === 'round_end') return isHost.value ? 'Your call: next round or end game?' : 'Waiting for the host'
-  if (hand.value) return 'Shout your guesses in voice chat!'
+  if (props.state.phase === 'round_end') return isHost.value ? 'Next round, or end game?' : 'Waiting for the host'
+  if (hand.value) return '推測して！'
   if (!describer.value || describer.value.connected) return 'Get ready to guess'
   return `Waiting for ${describer.value.name} to come back...`
 })

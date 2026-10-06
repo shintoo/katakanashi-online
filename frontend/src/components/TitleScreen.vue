@@ -58,7 +58,7 @@ async function create(profile) {
         <h3 class="disp">Join a game</h3>
         <p>Got a room code from a friend? Type it here.</p>
         <div class="tjoin">
-          <input v-model="code" class="field code" maxlength="4" placeholder="K7P3" autocomplete="off" />
+          <input v-model="code" class="field code" maxlength="4" placeholder="A1B2" autocomplete="off" />
           <button class="big yellow" :disabled="busy || !code.trim()">Join</button>
         </div>
         <p v-if="error" class="pf-error">{{ error }}</p>
