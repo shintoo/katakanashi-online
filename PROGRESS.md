@@ -11,7 +11,7 @@ This file tracks the project across Claude Code sessions. The game idea lives in
 
 ## Status
 
-**Phase:** Building. The project is set up, and the frontend and backend can talk. No game features yet.
+**Phase:** Building. A first full version of the game is built and committed: create/join rooms, lobby, first-player wheel, turns, timer, host menu, end screen, and reconnecting. Two scripted browser runs pass (a normal 3-player game, and the tricky cases: endless mode, 8 players, someone leaving, removing players, joining by link, wrong room codes). It has **not** been played by real people yet, and it hasn't been pushed to GitHub yet.
 
 **How to run:** `./dev.sh` starts both, then open http://localhost:5173. Backend tests: `cd backend && uv run pytest`.
 - `frontend/`: Vue + Vite. In dev, Vite passes `/api` and `/ws` through to the backend.
@@ -29,23 +29,24 @@ Mockups live in `mockups/`:
 - [x] Revise mockup C with feedback (`c2-game-show.html`)
 - [x] User reviews C2 and picks a standee style (picked Desk)
 - [x] Set up the project: Vue (Vite) frontend and FastAPI backend, run together locally
-- [ ] Live connection: rooms that push updates to every player in real time (likely WebSockets)
-- [ ] Title screen: create a room or join one by code or link
-- [ ] Lobby: player list, host settings, how-to-play popup, Start button
-- [ ] Picking the first player: spinning wheel, or the host goes first
-- [ ] Core turn: draw, highlight the word, timer, hand the card over, next turn, round counter
-- [ ] What guessers see: the card held above the describer's standee, plus the timer
-- [ ] Deck and discard pile: missed cards go to the discard pile, which is shuffled back in when the deck runs out. If both are empty, the game ends
-- [ ] Host menu: table color, fix a mistake, end game (between rounds), close room
-- [ ] End screen: podium with the top 3, then Play again (same room, new settings) or Close room
-- [ ] Word list: a simple placeholder set for now, the real one later
+- [x] Live connection: rooms that push updates to every player in real time (likely WebSockets)
+- [x] Title screen: create a room or join one by code or link
+- [x] Lobby: player list, host settings, how-to-play popup, Start button
+- [x] Picking the first player: spinning wheel, or the host goes first
+- [x] Core turn: draw, highlight the word, timer, hand the card over, next turn, round counter
+- [x] What guessers see: the card held above the describer's standee, plus the timer
+- [x] Deck and discard pile: missed cards go to the discard pile, which is shuffled back in when the deck runs out. If both are empty, the game ends
+- [x] Host menu: table color, fix a mistake, end game (between rounds), close room
+- [x] End screen: podium with the top 3, then Play again (same room, new settings) or Close room
+- [x] Word list: a simple placeholder set for now, the real one later
 - [ ] Custom player icons and UI icons, chosen when joining
 - [ ] Put it online somewhere friends can reach
 
 ## Next up
 
-1. Live connection: create and join rooms, keep a WebSocket open per player, and reconnect after a refresh.
-2. Title screen and lobby.
+1. Push to GitHub (waiting on the user's OK).
+2. User playtests with friends and gives feedback.
+3. Custom player and UI icons. Then decide on hosting.
 
 ## Feedback and decisions waiting to be built
 
@@ -94,3 +95,5 @@ These stay true for the whole project.
 - **2026-10-05:** Made mockups A (Round Table), B (Scoreboard), and C (Game Show). The user picked C and gave feedback. Started this tracker. Then made C2 with that feedback, including three standee styles to choose from.
 - **2026-10-05:** User reviewed C2 and picked the Desk standee. Decided the category is hidden everywhere (removed it from C2's card), and the game ends if the deck and discard pile both run out (rare, since there will be lots of cards).
 - **2026-10-05:** Decided how players stay connected and how reconnecting works. Set up the Vue + FastAPI project with a run-both script, a health check, and a WebSocket ping test.
+- **2026-10-05/06:** Built the backend (rooms, game rules, live updates, reconnecting, placeholder words) with 31 passing tests, and committed it. Built the whole frontend from the C2 mockup. A scripted 3-player browser run went through the full game; fixed a few small bugs it found ("Waiting for undefined", a leftover warning dot, lobby layout, table showing behind the end screen). Session cut off before the second browser test and before committing the frontend.
+- **2026-10-06:** Ran the second browser test (tricky cases). All checks passed. Fixed three small things it showed: an empty timer circle when there's no time limit (now hidden), the host being told "Waiting for the host" between rounds, and players with 0 cards standing on the podium. Committed the frontend.
