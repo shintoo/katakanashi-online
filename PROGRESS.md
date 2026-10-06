@@ -15,7 +15,7 @@ This file tracks the project across Claude Code sessions. The game idea lives in
 
 **How to run:** `./dev.sh` starts both, then open http://localhost:5173. Backend tests: `cd backend && uv run pytest`.
 Browser tests (with the app running): `uv run --with playwright python tests/browser/full_game.py` and `tricky_cases.py`. They drive Chrome as several players and save screenshots to `tests/browser/shots/`. Set `URL=...` to test somewhere other than localhost:5173 (like the live site).
-**Hosting:** Render, paid Starter plan, one Docker service (`Dockerfile` + `render.yaml`). The image builds the frontend, then runs the backend, which serves it. Auto-deploy is off on purpose: a deploy restarts the server and ends any games in progress, so deploy by hand when nobody's playing. Test the image locally with `docker build -t katakanashi . && docker run -p 8765:8000 katakanashi`.
+**Hosting:** live at https://katakanashi-18es.onrender.com on Render, paid Starter plan, one Docker service (`Dockerfile` + `render.yaml`). The image builds the frontend, then runs the backend, which serves it. Auto-deploy is off on purpose: a deploy restarts the server and ends any games in progress, so deploy by hand when nobody's playing. Test the image locally with `docker build -t katakanashi . && docker run -p 8765:8000 katakanashi`.
 - `frontend/`: Vue + Vite. In dev, Vite passes `/api` and `/ws` through to the backend.
 - `backend/`: FastAPI, managed with `uv`. Code is in `backend/app/`, tests in `backend/tests/`.
 
@@ -42,13 +42,12 @@ Mockups live in `mockups/`:
 - [x] End screen: podium with the top 3, then Play again (same room, new settings) or Close room
 - [x] Word list: a simple placeholder set for now, the real one later
 - [ ] Custom player icons and UI icons, chosen when joining
-- [ ] Put it online somewhere friends can reach
+- [x] Put it online somewhere friends can reach
 
 ## Next up
 
-1. User creates the Render service from `render.yaml` (Blueprint) and does the first deploy. Then run the browser tests against the live URL.
-2. User playtests with friends and gives feedback.
-3. Custom player and UI icons.
+1. User playtests with friends and gives feedback.
+2. Custom player and UI icons.
 
 ## Feedback and decisions waiting to be built
 
@@ -103,3 +102,4 @@ These stay true for the whole project.
 - **2026-10-06:** Added floating katakana (カ, タ, ナ, シ) to the background, alongside the shapes.
 - **2026-10-06:** New favicon: a pink カ on a plain rounded teal square (table color 2). Updated the README with a screenshot.
 - **2026-10-06:** Picked Render (paid plan) for hosting. Added a `Dockerfile`, `.dockerignore`, and `render.yaml`. Both browser tests pass against the Docker image.
+- **2026-10-06:** The user deployed it to Render. Both browser tests pass against the live site.
