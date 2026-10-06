@@ -1,12 +1,15 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import Backdrop from './components/Backdrop.vue'
+import RotateHint from './components/RotateHint.vue'
 import RoomView from './components/RoomView.vue'
 import TitleScreen from './components/TitleScreen.vue'
+import { usePortrait } from './lib/mobile'
 
 const code = ref(null)
 const message = ref('')
 const glow = ref(false)
+const portrait = usePortrait()
 
 function fromUrl() {
   const m = location.pathname.match(/^\/r\/([A-Za-z0-9]{4})\/?$/)
@@ -38,4 +41,5 @@ onUnmounted(() => window.removeEventListener('popstate', fromUrl))
   <Backdrop :glow="glow" />
   <RoomView v-if="code" :key="code" :code="code" @leave="leave" @glow="glow = $event" />
   <TitleScreen v-else :message="message" @enter="enter" />
+  <RotateHint v-if="portrait" />
 </template>

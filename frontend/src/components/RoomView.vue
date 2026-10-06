@@ -248,7 +248,7 @@ start()
 </template>
 
 <style>
-.wrap { position: relative; z-index: 1; height: 100vh; display: grid; grid-template-rows: auto 1fr; }
+.wrap { position: relative; z-index: 1; height: 100%; display: grid; grid-template-rows: auto 1fr; }
 .header { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; position: relative; z-index: 10; }
 .hright { display: flex; align-items: center; gap: 16px; }
 .helpbtn { width: 48px; height: 48px; border-radius: 50%; border: 4px solid var(--ink); background: #fff; box-shadow: 0 4px 0 var(--ink); font-family: 'Lilita One'; font-size: 26px; padding: 0; }

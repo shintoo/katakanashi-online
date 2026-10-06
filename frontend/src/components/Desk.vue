@@ -88,6 +88,7 @@ const fan = computed(() => Math.min(props.player.score, 5))
   border-radius: 10px; font-family: 'Lilita One'; font-size: 16px; padding: 1px 10px; z-index: 7; white-space: nowrap; box-shadow: 0 3px 0 var(--ink);
 }
 .pod.target:hover .give { display: block; }
+@media (hover: none) { .pod.target .give { display: block; bottom: 84px; } }
 .bulb { fill: #fff6c2; animation: blinkf 1s infinite; }
 .bulb:nth-of-type(even) { animation-delay: 0.5s; }
 .pod.describer .bulb { animation-duration: 0.35s; }

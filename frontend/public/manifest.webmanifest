@@ -1,0 +1,13 @@
+{
+  "name": "Katakanashi Online",
+  "short_name": "Katakanashi",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#b49cff",
+  "theme_color": "#b49cff",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

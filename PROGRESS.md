@@ -43,10 +43,11 @@ Mockups live in `mockups/`:
 - [x] Word list: a simple placeholder set for now, the real one later
 - [ ] Custom player icons and UI icons, chosen when joining
 - [x] Put it online somewhere friends can reach
+- [x] Playable on phones (sideways, desktop layout shrunk to fit)
 
 ## Next up
 
-1. User playtests with friends and gives feedback.
+1. User playtests with friends and gives feedback. Includes trying it on real phones (iPhone and Android), since phone support was only tested in a pretend-phone browser.
 2. Custom player and UI icons.
 
 ## Feedback and decisions waiting to be built
@@ -88,6 +89,7 @@ These stay true for the whole project.
 - **The server is the referee.** It holds the deck, the turn order, and the timer. Browsers only send requests ("I drew", "give the card to X"). The server checks them and tells everyone the result.
 - **Each player gets their own view.** The server builds what each player sees, so only the describer ever receives the card's words.
 - Rooms live in the server's memory for now. Add SQLite only when we need it.
+- **Phones get the desktop layout, shrunk.** `frontend/src/lib/mobile.js` tells touch screens to act like a screen at least 1180x720 and lets the browser shrink it. Don't design separate phone layouts; keep new screens working at 1180x720. Things that only show on mouse hover need a touch version (`@media (hover: none)`).
 - **Only ever run one copy of the server.** Rooms live in memory, so a second copy wouldn't know about the first one's rooms. Keep `numInstances: 1` in `render.yaml`.
 
 ## Session log
@@ -105,3 +107,4 @@ These stay true for the whole project.
 - **2026-10-06:** Simplified the how-to-play popup to three big steps (Draw! Explain! Guess!) with one short line each, plus a one-line voice chat reminder.
 - **2026-10-06:** Room codes now go letter-number-letter-number (like K7P3) so they can't spell rude words. No I/O/0/1, since they look alike.
 - **2026-10-06:** New logo based on the カタカナーシ 2 box (`docs/katakanashi-2-box.jpg`): the word カタカナーシ on one line, green with a blue 3D shadow, on a lemon-yellow panel with white polka dots. Dropped the English "KATAKANASHI!" and the light bulbs. The favicon now matches: a green カ with a blue shadow on the same dotted yellow.
+- **2026-10-06:** Phone support. Phones show the desktop layout shrunk to fit (pretend 1180x720 or wider). Held upright, they show a "Turn your phone sideways!" screen. On Android, the first tap goes full screen and locks sideways; iPhones can't do that from a web page, but adding the game to the home screen opens it full screen (new app manifest and icons). "GIVE CARD" labels always show on touch screens, since there's no hover. Tested in a pretend iPhone browser only.
