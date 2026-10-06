@@ -15,7 +15,7 @@ This file tracks the project across Claude Code sessions. The game idea lives in
 
 **How to run:** `./dev.sh` starts both, then open http://localhost:5173. Backend tests: `cd backend && uv run pytest`.
 Browser tests (with the app running): `uv run --with playwright python tests/browser/full_game.py` and `tricky_cases.py`. They drive Chrome as several players and save screenshots to `tests/browser/shots/`. Set `URL=...` to test somewhere other than localhost:5173 (like the live site).
-**Hosting:** live at https://katakanashi-18es.onrender.com on Render, paid Starter plan, one Docker service (`Dockerfile` + `render.yaml`). The image builds the frontend, then runs the backend, which serves it. Auto-deploy is off on purpose: a deploy restarts the server and ends any games in progress, so deploy by hand when nobody's playing. Test the image locally with `docker build -t katakanashi . && docker run -p 8765:8000 katakanashi`.
+**Hosting:** live at https://katakanashi-18es.onrender.com on Render, one Docker service (currently the free instance, which sleeps after ~15 idle minutes and loses rooms; upgrade to the $7 Starter before real playtests) (`Dockerfile` + `render.yaml`). The image builds the frontend, then runs the backend, which serves it. Auto-deploy is off on purpose: a deploy restarts the server and ends any games in progress, so deploy by hand when nobody's playing. Test the image locally with `docker build -t katakanashi . && docker run -p 8765:8000 katakanashi`.
 - `frontend/`: Vue + Vite. In dev, Vite passes `/api` and `/ws` through to the backend.
 - `backend/`: FastAPI, managed with `uv`. Code is in `backend/app/`, tests in `backend/tests/`.
 
