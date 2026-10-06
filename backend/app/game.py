@@ -26,6 +26,8 @@ HOST_GRACE = 60.0
 EMPTY_ROOM_TTL = 30 * 60.0
 
 CODE_LETTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ"
+# Codes go letter-number-letter-number so they can never spell a word.
+CODE_DIGITS = "23456789"
 
 
 class GameError(Exception):

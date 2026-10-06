@@ -6,7 +6,7 @@ import time
 
 from fastapi import WebSocket
 
-from .game import CODE_LETTERS, GameError, Room
+from .game import CODE_DIGITS, CODE_LETTERS, GameError, Room
 
 
 class LiveRoom:
@@ -107,7 +107,7 @@ class Hub:
 
     def new_code(self):
         while True:
-            code = "".join(self.rng.choice(CODE_LETTERS) for _ in range(4))
+            code = "".join(self.rng.choice(chars) for chars in (CODE_LETTERS, CODE_DIGITS) * 2)
             if code not in self.rooms:
                 return code
 

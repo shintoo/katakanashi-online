@@ -9,7 +9,7 @@ const message = ref('')
 const glow = ref(false)
 
 function fromUrl() {
-  const m = location.pathname.match(/^\/r\/([A-Za-z]{4})\/?$/)
+  const m = location.pathname.match(/^\/r\/([A-Za-z0-9]{4})\/?$/)
   code.value = m ? m[1].toUpperCase() : null
 }
 

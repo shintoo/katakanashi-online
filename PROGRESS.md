@@ -103,3 +103,4 @@ These stay true for the whole project.
 - **2026-10-06:** Picked Render (paid plan) for hosting. Added a `Dockerfile`, `.dockerignore`, and `render.yaml`. Both browser tests pass against the Docker image.
 - **2026-10-06:** The user deployed it to Render. Both browser tests pass against the live site.
 - **2026-10-06:** Simplified the how-to-play popup to three big steps (Draw! Explain! Guess!) with one short line each, plus a one-line voice chat reminder.
+- **2026-10-06:** Room codes now go letter-number-letter-number (like K7P3) so they can't spell rude words. No I/O/0/1, since they look alike.

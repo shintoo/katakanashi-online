@@ -1,3 +1,5 @@
+import re
+
 import pytest
 from fastapi.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
@@ -25,6 +27,12 @@ def latest_state(ws, until=lambda s: True):
 
 def test_health():
     assert client.get("/api/health").json() == {"ok": True}
+
+
+def test_room_code_alternates_letters_and_numbers():
+    for _ in range(20):
+        code = client.post("/api/rooms", json={"name": "Host", "icon": ICON}).json()["code"]
+        assert re.fullmatch(r"[A-Z][2-9][A-Z][2-9]", code)
 
 
 def test_join_errors():
