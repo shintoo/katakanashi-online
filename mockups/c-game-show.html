@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katakanashi · Mockup C — Game Show</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;700;800;900&family=M+PLUS+Rounded+1c:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2a1f3d;
+  --table:#b49cff;
+  --yellow:#ffd23f; --pink:#ff5fa2; --blue:#3ec5ff; --green:#5ee07a; --orange:#ff8c42; --red:#ff4d6d; --purple:#7b5cff;
+  --paper:#fffaf0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:var(--table);overflow:hidden;transition:background .6s}
+.disp{font-family:"Lilita One",cursive;letter-spacing:.02em}
+.jp{font-family:"M PLUS Rounded 1c",sans-serif}
+button{font-family:inherit;color:inherit;cursor:pointer}
+
+/* sunburst + shapes */
+#burst{position:fixed;inset:-50%;z-index:0;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg at 50% 50%, color-mix(in srgb,var(--table) 88%,white) 0 10deg, var(--table) 10deg 20deg);
+  animation:spin 80s linear infinite;transition:background .6s}
+@keyframes spin{to{transform:rotate(360deg)}}
+#bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+#bg .shape{position:absolute;transform:rotate(var(--r));animation:bob 5s ease-in-out infinite;animation-delay:var(--d)}
+#bg svg{width:100%;height:100%;overflow:visible}
+@keyframes bob{50%{transform:rotate(calc(var(--r) + 12deg)) scale(1.08)}}
+
+.wrap{position:relative;z-index:1;height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+
+/* header */
+.header{display:flex;align-items:center;justify-content:space-between;padding:16px 28px}
+.marquee{position:relative;background:var(--red);border:5px solid var(--ink);border-radius:20px;padding:6px 30px 10px;box-shadow:0 7px 0 var(--ink);transform:rotate(-2deg)}
+.marquee h1{margin:0;font-size:40px;color:#fff;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:0 4px 0 var(--ink)}
+.marquee .sub{font-family:"Lilita One";color:var(--yellow);font-size:14px;letter-spacing:.3em;text-align:center;margin-top:-4px}
+.bulbs{position:absolute;inset:6px;pointer-events:none}
+.bulbs i{position:absolute;width:9px;height:9px;border-radius:50%;background:#fff6c2;box-shadow:0 0 6px #fff6a0;animation:blink 1s infinite}
+.bulbs i:nth-child(even){animation-delay:.5s}
+@keyframes blink{50%{background:#a08a3a;box-shadow:none}}
+.hright{display:flex;align-items:center;gap:16px}
+.badge{background:#fff;border:4px solid var(--ink);border-radius:16px;padding:6px 16px;box-shadow:0 5px 0 var(--ink);text-align:center;line-height:1}
+.badge small{display:block;font-weight:900;font-size:11px;letter-spacing:.2em;opacity:.6}
+.badge .disp{font-size:30px}
+.clock{position:relative;width:96px;height:96px}
+.clock .face{position:absolute;inset:0;border-radius:50%;border:5px solid var(--ink);box-shadow:0 5px 0 var(--ink);
+  background:conic-gradient(var(--yellow) calc(var(--p)*1%), #fff 0);display:grid;place-items:center}
+.clock .face span{background:#fff;border:4px solid var(--ink);border-radius:50%;width:58px;height:58px;display:grid;place-items:center;font-family:"Lilita One";font-size:26px}
+.clock.low .face{background:conic-gradient(var(--red) calc(var(--p)*1%), #fff 0);animation:shake .3s infinite}
+@keyframes shake{25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
+.swatchbtn{position:relative}
+.swatchpop{position:absolute;right:0;top:110%;display:none;grid-template-columns:repeat(5,30px);gap:6px;background:#fff;border:4px solid var(--ink);border-radius:14px;padding:10px;box-shadow:0 5px 0 var(--ink);z-index:9}
+.swatchpop.on{display:grid}
+.swatchpop button{width:30px;height:30px;border-radius:50%;border:3px solid var(--ink);padding:0}
+.iconbtn{width:52px;height:52px;border-radius:14px;border:4px solid var(--ink);background:#fff;box-shadow:0 5px 0 var(--ink);font-size:24px}
+
+/* stage */
+.stage{position:relative;display:flex;align-items:center;justify-content:center;gap:50px}
+.spot{position:absolute;left:50%;top:50%;width:720px;height:520px;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,255,255,.75),rgba(255,255,255,0));opacity:.35;transition:opacity .6s;pointer-events:none}
+.stage.lit .spot{opacity:1}
+.deckcol{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px}
+.deck{position:relative;width:170px;height:238px;cursor:pointer}
+.cb{position:absolute;inset:0;border-radius:20px;border:5px solid var(--ink);background:var(--orange);display:grid;place-items:center;overflow:hidden;
+  background-image:radial-gradient(circle at 50% 50%, transparent 52px, rgba(255,255,255,.25) 53px 62px, transparent 63px),repeating-radial-gradient(circle at 50% 50%, transparent 0 18px, rgba(0,0,0,.06) 18px 20px)}
+.cb .num{font-family:"Lilita One";font-size:86px;color:var(--yellow);-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;text-shadow:0 5px 0 var(--ink);transition:transform .4s cubic-bezier(.3,1.8,.5,1)}
+.deck .l1{transform:translate(0,12px)}.deck .l2{transform:translate(0,6px)}
+.deck .l1,.deck .l2{box-shadow:none}.deck .l1 .num,.deck .l2 .num{visibility:hidden}
+.deck #top{transition:transform .2s}
+.deck:hover #top{transform:translateY(-10px) rotate(3deg)}
+.deck.locked{cursor:default}.deck.locked:hover #top{transform:none}
+#top.reveal{background-color:var(--yellow)}
+#top.reveal .num{color:#fff;transform:scale(1.35) rotate(-8deg)}
+#top.reveal::after{content:"";position:absolute;inset:-5px;border-radius:20px;border:6px solid #fff;animation:ping 1s infinite}
+@keyframes ping{to{transform:scale(1.25);opacity:0}}
+.decktag{font-family:"Lilita One";font-size:18px;background:var(--ink);color:#fff;border-radius:12px;padding:2px 14px}
+.drawme{position:absolute;top:-58px;font-family:"Lilita One";font-size:22px;background:var(--green);border:4px solid var(--ink);border-radius:14px;padding:2px 14px;box-shadow:0 4px 0 var(--ink);animation:hop 1s ease-in-out infinite;white-space:nowrap}
+@keyframes hop{50%{transform:translateY(-8px)}}
+
+.slot{position:relative;width:260px;height:364px;border-radius:22px;border:5px dashed rgba(42,31,61,.3);display:grid;place-items:center;font-family:"Lilita One";font-size:20px;color:rgba(42,31,61,.4);text-align:center;padding:30px}
+.hand{position:absolute;inset:-5px;perspective:1400px;visibility:hidden;z-index:5}
+.hand.show{visibility:visible}
+.inner{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+.f{position:absolute;inset:0;backface-visibility:hidden;border-radius:22px}
+.f.back{transform:rotateY(180deg)}
+.front{background:var(--paper);border:5px solid var(--ink);box-shadow:0 8px 0 var(--ink);padding:12px;display:flex;flex-direction:column;gap:6px}
+.front .head{display:flex;justify-content:space-between;align-items:center;font-family:"Lilita One";font-size:15px}
+.front .head .jp{background:var(--blue);border:3px solid var(--ink);border-radius:10px;padding:0 10px;font-size:14px}
+.words{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;flex:1}
+.words li{flex:1;display:flex;align-items:center;gap:10px;border:3px solid var(--ink);border-radius:12px;padding:0 10px;font-size:20px;font-weight:800;background:#fff;transition:all .4s}
+.words .n{font-family:"Lilita One";font-size:20px;width:30px;color:var(--purple)}
+.words li.hl{background:var(--yellow);transform:scale(1.1);box-shadow:0 4px 0 var(--ink);z-index:2}
+.words li.hl::after{content:"★";margin-left:auto;font-size:20px;color:var(--pink);animation:spin 3s linear infinite}
+.words li.dim{opacity:.4;transform:scale(.95)}
+
+.sticky{position:relative;width:240px;opacity:0;transform:translateX(-30px) rotate(10deg);transition:all .5s cubic-bezier(.3,1.5,.5,1);perspective:900px}
+.sticky.on{opacity:1;transform:rotate(4deg)}
+.note{position:relative;height:220px;transform-style:preserve-3d;transition:transform .6s;cursor:pointer}
+.note.flip{transform:rotateY(180deg)}
+.note .side{position:absolute;inset:0;backface-visibility:hidden;border:4px solid var(--ink);padding:18px 16px;box-shadow:0 6px 0 var(--ink)}
+.note .s1{background:#fff59d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.note .s1 .q{font-size:46px}
+.note .s1 b{font-family:"Lilita One";font-size:22px;font-weight:400}
+.note .s2{background:#c8f7ff;transform:rotateY(180deg)}
+.note .kw{font-size:30px;font-weight:800}
+.note .rom{color:var(--purple);font-weight:900}
+.note .def{font-size:17px;font-weight:700;line-height:1.3;margin-top:6px}
+.tape{position:absolute;top:-14px;left:50%;width:90px;height:26px;margin-left:-45px;background:rgba(255,255,255,.7);border:2px solid rgba(42,31,61,.3);transform:rotate(-4deg);z-index:3}
+.rule{margin-top:16px;font-family:"Lilita One";font-size:17px;background:var(--pink);color:#fff;border:4px solid var(--ink);border-radius:14px;padding:6px 10px;text-align:center;box-shadow:0 4px 0 var(--ink);transform:rotate(-2deg)}
+.pass{margin-top:12px;width:100%;font-weight:900;background:#fff;border:4px solid var(--ink);border-radius:14px;padding:6px;box-shadow:0 4px 0 var(--ink)}
+
+/* podiums */
+.podiums{display:flex;justify-content:center;gap:22px;padding:0 20px}
+.pod{position:relative;display:flex;flex-direction:column;align-items:center;width:150px;transition:transform .2s}
+.pod .av{width:76px;height:76px;border-radius:50%;border:5px solid var(--ink);display:grid;place-items:center;font-size:40px;margin-bottom:-12px;z-index:2;position:relative}
+.pod .stack{position:absolute;left:-8px;bottom:120px;width:40px;height:50px;z-index:1}
+.pod .stack i{position:absolute;bottom:calc(var(--k)*5px);left:0;width:34px;height:46px;border-radius:7px;border:3px solid var(--ink);background:var(--orange)}
+.pod .stand{width:100%;height:132px;border:5px solid var(--ink);border-bottom:0;border-radius:18px 18px 0 0;padding-top:16px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  background:linear-gradient(var(--c),color-mix(in srgb,var(--c) 70%,var(--ink)))}
+.pod .plate{background:#fff;border:3px solid var(--ink);border-radius:10px;padding:0 12px;font-weight:900;font-size:17px}
+.pod .led{font-family:"Lilita One";font-size:40px;color:#ffea7a;background:var(--ink);border-radius:12px;padding:0 16px;min-width:70px;text-align:center;text-shadow:0 0 10px #ffd23f;line-height:1.25}
+.pod.describer .av{box-shadow:0 0 0 6px #fff,0 0 30px 10px #fff}
+.pod.describer .av::after{content:"🎤";position:absolute;top:-16px;right:-18px;font-size:30px}
+.pod.target{cursor:pointer}
+.pod.target .stand{animation:glow 1s ease-in-out infinite alternate}
+.pod.target:hover{transform:translateY(-12px)}
+.pod.target:hover .plate::after{content:" 🎁"}
+@keyframes glow{to{filter:brightness(1.2)}}
+.pod.got .led{animation:bump .6s}
+@keyframes bump{40%{transform:scale(1.4) rotate(-6deg);color:#fff}}
+.spark{position:fixed;width:14px;height:14px;border-radius:3px;border:2px solid var(--ink);z-index:30;pointer-events:none;animation:sparkle .9s ease-out forwards}
+@keyframes sparkle{to{transform:translate(var(--x),var(--y)) rotate(400deg);opacity:0}}
+
+/* wheel overlay */
+.ov{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:rgba(42,31,61,.6)}
+.ov.off{display:none}
+.wheelbox{display:flex;flex-direction:column;align-items:center;gap:18px}
+.wheelbox h2{margin:0;font-family:"Lilita One";font-weight:400;font-size:46px;color:#fff;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:0 5px 0 var(--ink)}
+.wheelarea{position:relative;width:400px;height:400px}
+.pointer{position:absolute;top:-24px;left:50%;margin-left:-22px;width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-top:44px solid var(--ink);z-index:3}
+.pointer::after{content:"";position:absolute;left:-14px;top:-40px;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid var(--yellow)}
+.wheel{position:absolute;inset:0;border-radius:50%;border:8px solid var(--ink);box-shadow:0 10px 0 var(--ink);transition:transform 4.5s cubic-bezier(.12,.7,.15,1)}
+.wheel .lab{position:absolute;left:50%;top:50%;width:0;height:0}
+.wheel .lab span{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;font-weight:900;font-size:18px;color:var(--ink)}
+.wheel .lab span b{font-size:42px;line-height:1}
+.hub{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px;border-radius:50%;background:var(--yellow);border:6px solid var(--ink);z-index:2;display:grid;place-items:center;font-family:"Lilita One";font-size:20px}
+.wbtns{display:flex;gap:14px}
+.big{font-family:"Lilita One";font-size:26px;border:5px solid var(--ink);border-radius:18px;padding:8px 28px;box-shadow:0 6px 0 var(--ink);background:var(--green)}
+.big.alt{background:#fff;font-size:18px}
+.big:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
+.result{font-family:"Lilita One";font-size:30px;color:#fff;-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill;min-height:40px}
+.toast{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%) scale(0);font-family:"Lilita One";font-size:54px;color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:0 6px 0 var(--ink);z-index:35;transition:transform .35s cubic-bezier(.3,1.8,.5,1);pointer-events:none;white-space:nowrap}
+.toast.on{transform:translate(-50%,-50%) scale(1) rotate(-4deg)}
+</style>
+</head>
+<body>
+<div id="burst"></div>
+<div id="bg"></div>
+<div class="wrap">
+  <header class="header">
+    <div class="marquee"><div class="bulbs" id="bulbs"></div><h1 class="disp">KATAKANASHI!</h1><div class="sub jp">カタカナシ</div></div>
+    <div class="hright">
+      <div class="badge"><small>ROOM</small><span class="disp">MOCHI</span></div>
+      <div class="badge"><small>ROUND</small><span class="disp" id="round">1/5</span></div>
+      <div class="clock" id="clock" style="--p:100"><div class="face"><span id="tnum">∞</span></div></div>
+      <div class="swatchbtn"><button class="iconbtn" id="palette">🎨</button><div class="swatchpop" id="swatches"></div></div>
+    </div>
+  </header>
+
+  <section class="stage" id="stage">
+    <div class="spot"></div>
+    <div class="deckcol">
+      <div class="deck" id="deck">
+        <div class="drawme" id="drawme">Draw!</div>
+        <div class="cb l1"><div class="num"></div></div>
+        <div class="cb l2"><div class="num"></div></div>
+        <div class="cb" id="top"><div class="num" id="topnum">?</div></div>
+      </div>
+      <div class="decktag" id="decktag">40 LEFT</div>
+    </div>
+    <div class="slot">your card goes here
+      <div class="hand" id="hand"><div class="inner" id="inner">
+        <div class="f front"><div class="head"><span>CARD</span><span class="jp">カタカナシ</span></div><ol class="words jp" id="words"></ol></div>
+        <div class="f back cb"><div class="num" id="handnum">?</div></div>
+      </div></div>
+    </div>
+    <div class="sticky" id="sticky">
+      <div class="tape"></div>
+      <div class="note" id="note">
+        <div class="side s1"><div class="q">🤔</div><b>Don't know it?</b><span>Tap to peek at the meaning</span></div>
+        <div class="side s2"><div class="kw jp" id="kw"></div><div class="rom" id="rom"></div><div class="def" id="def"></div></div>
+      </div>
+      <div class="rule">NO KATAKANA ALLOWED! 🚫</div>
+      <button class="pass" id="pass">😵 Nobody got it — pass</button>
+    </div>
+  </section>
+
+  <section class="podiums" id="podiums"></section>
+</div>
+
+<div class="ov" id="ov">
+  <div class="wheelbox">
+    <h2>Who goes first?</h2>
+    <div class="wheelarea"><div class="pointer"></div><div class="wheel" id="wheel"></div><div class="hub">GO</div></div>
+    <div class="result" id="result">&nbsp;</div>
+    <div class="wbtns"><button class="big" id="spin">SPIN! 🎡</button><button class="big alt" id="hostfirst">Host goes first</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const COLORS=['#b49cff','#3ecfb2','#ff8a7a','#6cc4ff','#8ee3a5','#ffd35c','#ff9ccf','#ffad5c','#8fa5ff','#c6e86b'];
+const WORDS=[
+ [['コーヒー','kōhī','Coffee — a dark, bitter morning drink'],['カメラ','kamera','Camera — takes photos'],['サッカー','sakkā','Soccer / football'],['エレベーター','erebētā','Elevator — a box that carries you between floors'],['チョコレート','chokorēto','Chocolate'],['ギター','gitā','Guitar — a stringed instrument']],
+ [['ペンギン','pengin','Penguin — a bird that swims but can’t fly'],['ロボット','robotto','Robot'],['シャワー','shawā','Shower'],['カレンダー','karendā','Calendar'],['トマト','tomato','Tomato'],['バス','basu','Bus']],
+ [['キャンプ','kyanpu','Camping'],['ドライヤー','doraiyā','Hair dryer — blows hot air to dry hair'],['サンドイッチ','sandoicchi','Sandwich'],['マラソン','marason','Marathon — a very long running race'],['コンビニ','konbini','Convenience store'],['ネクタイ','nekutai','Necktie']],
+ [['アイスクリーム','aisu kurīmu','Ice cream — a frozen sweet dessert'],['パソコン','pasokon','Personal computer (PC)'],['スマホ','sumaho','Smartphone'],['ハンバーガー','hanbāgā','Hamburger'],['プール','pūru','Swimming pool'],['レストラン','resutoran','Restaurant']],
+ [['ハンカチ','hankachi','Handkerchief'],['ゲーム','gēmu','(Video) game'],['ジュース','jūsu','Juice'],['カラオケ','karaoke','Karaoke — singing along to music'],['ビール','bīru','Beer'],['テント','tento','Tent']],
+];
+const deck=Array.from({length:40},(_,i)=>({num:1+Math.floor(Math.random()*6),words:WORDS[i%WORDS.length]}));
+const players=[
+ {name:'You',emoji:'🦊',color:'#ffd23f',score:0},
+ {name:'Hana',emoji:'🐼',color:'#ff5fa2',score:0},
+ {name:'Kenji',emoji:'🐙',color:'#3ec5ff',score:0},
+ {name:'Mia',emoji:'🐸',color:'#5ee07a',score:0},
+ {name:'Taro',emoji:'🐯',color:'#ff8c42',score:0},
+];
+let d=0,first=0,round=1,hand=null,busy=false,timer=null;
+const $=id=>document.getElementById(id);
+const ink='#2a1f3d';
+
+// marquee bulbs
+(()=>{let h='';for(let i=0;i<14;i++)h+=`<i style="left:${i/13*100}%;top:-10px"></i><i style="left:${i/13*100}%;bottom:-10px"></i>`;$('bulbs').innerHTML=h})();
+
+const SH={
+ tri:c=>`<svg viewBox="0 0 100 100"><polygon points="50,8 94,90 6,90" fill="${c}" stroke="${ink}" stroke-width="6" stroke-linejoin="round"/></svg>`,
+ squig:c=>{const p='M10 30 Q 30 0 50 30 T 90 30 T 130 30 T 170 30';return `<svg viewBox="0 0 180 60"><path d="${p}" fill="none" stroke="${ink}" stroke-width="18" stroke-linecap="round"/><path d="${p}" fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round"/></svg>`},
+ star:c=>`<svg viewBox="0 0 100 100"><polygon points="50,6 61,38 95,38 67,58 78,92 50,72 22,92 33,58 5,38 39,38" fill="${c}" stroke="${ink}" stroke-width="6" stroke-linejoin="round"/></svg>`,
+ bolt:c=>`<svg viewBox="0 0 60 100"><polygon points="36,4 6,56 28,56 20,96 54,40 32,40" fill="${c}" stroke="${ink}" stroke-width="5" stroke-linejoin="round"/></svg>`,
+};
+[['star','#ffd23f',4,30,70,-10],['squig','#7b5cff',2,60,160,20],['tri','#5ee07a',88,32,70,15],['bolt','#ffd23f',93,58,60,10],['star','#fff',80,4,40,0],['squig','#ff5fa2',38,2,130,-6]]
+.forEach(([s,c,x,y,w,r],i)=>{const el=document.createElement('div');el.className='shape';el.innerHTML=SH[s](c);
+  el.style.cssText=`left:${x}%;top:${y}%;width:${w}px;height:${w}px;--r:${r}deg;--d:${-i*.8}s`;$('bg').appendChild(el)});
+
+COLORS.forEach(c=>{const b=document.createElement('button');b.style.background=c;b.onclick=()=>document.documentElement.style.setProperty('--table',c);$('swatches').appendChild(b)});
+$('palette').onclick=()=>$('swatches').classList.toggle('on');
+
+const pods=players.map((p,i)=>{const el=document.createElement('div');el.className='pod';el.style.setProperty('--c',p.color);
+  el.innerHTML=`<div class="stack"></div><div class="av" style="background:${p.color}">${p.emoji}</div><div class="stand"><div class="plate">${p.name}</div><div class="led">0</div></div>`;
+  el.onclick=()=>give(i);$('podiums').appendChild(el);return el});
+function render(){
+  pods.forEach((el,i)=>{el.classList.toggle('describer',i===d);el.classList.toggle('target',!!hand&&i!==d);
+    el.querySelector('.led').textContent=players[i].score;
+    el.querySelector('.stack').innerHTML=Array.from({length:Math.min(players[i].score,6)},(_,k)=>`<i style="--k:${k}"></i>`).join('')});
+  $('round').textContent=`${round}/5`;$('topnum').textContent=deck[0]?deck[0].num:'–';$('decktag').textContent=`${deck.length} LEFT`;
+  $('drawme').style.display=hand?'none':'';$('drawme').textContent=d===0?'Your turn — draw!':`${players[d].name}: draw!`;
+  $('deck').classList.toggle('locked',!!hand);
+}
+function draw(){
+  if(hand||busy||deck.length<2)return;busy=true;hand=deck.shift();const target=deck[0].num;
+  $('handnum').textContent=hand.num;
+  $('words').innerHTML=hand.words.map((w,i)=>`<li data-i="${i+1}"><span class="n">${i+1}</span>${w[0]}</li>`).join('');
+  const from=$('top').getBoundingClientRect(),h=$('hand');h.classList.add('show');const to=h.getBoundingClientRect();
+  h.style.transition='none';$('inner').style.transition='none';
+  h.style.transform=`translate(${from.left-to.left}px,${from.top-to.top}px) scale(${from.width/to.width})`;$('inner').style.transform='rotateY(540deg) rotateX(20deg)';
+  h.offsetWidth;
+  h.style.transition='transform .9s cubic-bezier(.2,1.2,.4,1)';$('inner').style.transition='transform 1.1s cubic-bezier(.3,0,.2,1)';
+  h.style.transform='';$('inner').style.transform='';
+  $('stage').classList.add('lit');render();
+  setTimeout(()=>{
+    $('top').classList.add('reveal');
+    document.querySelectorAll('#words li').forEach(li=>{li.classList.toggle('hl',+li.dataset.i===target);li.classList.toggle('dim',+li.dataset.i!==target)});
+    const w=hand.words[target-1];$('kw').textContent=w[0];$('rom').textContent=w[1];$('def').textContent=w[2];
+    $('note').classList.remove('flip');$('sticky').classList.add('on');startTimer();busy=false;
+  },1100);
+}
+function startTimer(){
+  let t=30;clearInterval(timer);
+  const tick=()=>{$('tnum').textContent=t;$('clock').style.setProperty('--p',t/30*100);$('clock').classList.toggle('low',t<=5);if(t--<=0){clearInterval(timer);$('tnum').textContent='⏰';shout("TIME'S UP!")}};
+  tick();timer=setInterval(tick,1000);
+}
+function reset(){clearInterval(timer);$('tnum').textContent='∞';$('clock').style.setProperty('--p',100);$('clock').classList.remove('low');$('sticky').classList.remove('on');$('top').classList.remove('reveal');$('stage').classList.remove('lit')}
+function give(i){
+  if(!hand||busy||i===d)return;busy=true;
+  const h=$('hand'),from=h.getBoundingClientRect(),to=pods[i].querySelector('.av').getBoundingClientRect();reset();
+  h.style.transition='transform .7s cubic-bezier(.6,-0.4,.6,1)';
+  h.style.transform=`translate(${to.left+to.width/2-from.left-from.width/2}px,${to.top+to.height/2-from.top-from.height/2}px) scale(.12) rotate(360deg)`;
+  setTimeout(()=>{
+    h.classList.remove('show');h.style.transition='none';h.style.transform='';players[i].score++;
+    pods[i].classList.remove('got');pods[i].offsetWidth;pods[i].classList.add('got');burst(to.left+to.width/2,to.top+to.height/2);
+    shout(['SEIKAI! 正解','NICE!','BINGO!'][Math.floor(Math.random()*3)]);next();
+  },700);
+}
+function pass(){if(!hand||busy)return;busy=true;reset();const h=$('hand');h.style.transition='transform .5s ease-in';h.style.transform='translateX(-120vw) rotate(-60deg)';
+  setTimeout(()=>{h.classList.remove('show');h.style.transition='none';h.style.transform='';next()},500)}
+function next(){hand=null;busy=false;d=(d+1)%players.length;if(d===first)round++;render()}
+function burst(x,y){for(let i=0;i<24;i++){const s=document.createElement('div');s.className='spark';const a=Math.random()*Math.PI*2,r=60+Math.random()*90;
+  s.style.cssText=`left:${x}px;top:${y}px;background:${['#ffd23f','#ff5fa2','#3ec5ff','#5ee07a','#fff'][i%5]};--x:${Math.cos(a)*r}px;--y:${Math.sin(a)*r-40}px`;document.body.appendChild(s);setTimeout(()=>s.remove(),900)}}
+let tt;function shout(m){$('toast').textContent=m;$('toast').classList.add('on');clearTimeout(tt);tt=setTimeout(()=>$('toast').classList.remove('on'),1100)}
+$('deck').onclick=draw;$('pass').onclick=pass;$('note').onclick=()=>$('note').classList.toggle('flip');
+
+// first-player wheel
+const seg=360/players.length;
+$('wheel').style.background=`conic-gradient(${players.map((p,i)=>`${p.color} ${i*seg}deg ${(i+1)*seg}deg`).join(',')})`;
+$('wheel').innerHTML=players.map((p,i)=>`<div class="lab" style="transform:rotate(${(i+.5)*seg}deg)"><span style="top:-125px;transform:translate(-50%,-50%)"><b>${p.emoji}</b>${p.name}</span></div>`).join('');
+let spun=false;
+function begin(w,msg){
+  $('result').textContent=msg;first=d=w;$('spin').textContent='START! ▶';$('hostfirst').style.display='none';
+  $('spin').onclick=()=>{$('ov').classList.add('off');render();shout(`${players[w].name} first!`)};
+}
+$('spin').onclick=()=>{if(spun)return;spun=true;const w=Math.floor(Math.random()*players.length);
+  $('wheel').style.transform=`rotate(${360*6+360-(w+.5)*seg+(Math.random()*.6-.3)*seg}deg)`;$('result').textContent='spinning…';
+  setTimeout(()=>begin(w,`🎉 ${players[w].name} draws first!`),4600)};
+$('hostfirst').onclick=()=>begin(0,'👑 The host (you) goes first!');
+render();
+</script>
+</body>
+</html>
