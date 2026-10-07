@@ -60,10 +60,8 @@ input { font-family: inherit; color: inherit; }
 }
 .badge small { display: block; font-weight: 900; font-size: 11px; letter-spacing: 0.2em; opacity: 0.6; }
 .badge .disp { font-size: 30px; }
-.badge .tag {
-  display: inline-block; margin-top: 3px; font-size: 10px; font-weight: 900; letter-spacing: 0.15em;
-  background: var(--purple); color: #fff; border-radius: 6px; padding: 1px 6px;
-}
+.badge-row { display: flex; align-items: baseline; justify-content: center; gap: 2px; }
+.badge .disp.of { font-size: 18px; opacity: 0.5; }
 
 /* overlays and panels */
 .ov { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; background: rgba(42, 31, 61, 0.6); }
@@ -142,3 +140,19 @@ input { font-family: inherit; color: inherit; }
 }
 .notice.on { transform: translate(-50%, 0); opacity: 1; }
 .notice.bad { background: var(--red); border: 3px solid var(--ink); }
+
+/* calm mode: nothing loops, spins or bounces */
+.calm #burst, .calm #bg .shape, .calm #edge.on,
+.calm .held .cb, .calm .pod.target .lift, .calm .bulb, .calm .pod.got .score,
+.calm .drawme, .calm #deckTop.reveal::after, .calm .words li.hl::after, .calm .deck.shuffling .l1, .calm .deck.shuffling .l2,
+.calm .t-low .tbar, .calm .t-low .bigclock, .calm .pf-preview, .calm .podium.everyone .avatar {
+  animation: none;
+}
+.calm #edge.on { opacity: 0.7; }
+.calm .panel, .calm .lob-p, .calm .roundover, .calm .step .mini { animation: fadein 0.4s both; }
+@keyframes fadein { from { opacity: 0; } }
+.calm .shout { transform: translate(-50%, -50%); }
+.calm .notice { transform: translate(-50%, 0); }
+.calm .sticky, .calm .sticky.on { transform: rotate(4deg); }
+.calm .deck:hover #deckTop { transform: none; }
+.calm #deckTop.reveal .num { transform: none; }

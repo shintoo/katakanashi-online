@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
+import { calm } from '../lib/motion'
 import Avatar from './Avatar.vue'
 
 const props = defineProps({ state: Object, send: Function })
@@ -21,7 +22,7 @@ const done = ref(false)
 function aim(instant) {
   const i = players.value.findIndex((p) => p.id === wheel.value.winner)
   animate.value = !instant
-  angle.value = 360 * 6 + 360 - (i + 0.5) * seg.value + (wheel.value.spin * 0.6 - 0.3) * seg.value
+  angle.value = 360 * (calm.value ? 0 : 6) + 360 - (i + 0.5) * seg.value + (wheel.value.spin * 0.6 - 0.3) * seg.value
   if (instant) done.value = true
   else setTimeout(() => (done.value = true), SPIN_MS)
 }

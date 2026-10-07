@@ -19,5 +19,4 @@ import { muted } from '../lib/music'
 
 <style>
 .mutebtn { display: grid; place-items: center; color: var(--ink); }
-.mutebtn.corner { position: fixed; top: 16px; right: 28px; z-index: 10; }
 </style>

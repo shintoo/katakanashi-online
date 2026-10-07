@@ -9,7 +9,7 @@ import HostMenu from './HostMenu.vue'
 import HowToPlay from './HowToPlay.vue'
 import Lobby from './Lobby.vue'
 import Marquee from './Marquee.vue'
-import MuteButton from './MuteButton.vue'
+import CornerButtons from './CornerButtons.vue'
 import PlayerForm from './PlayerForm.vue'
 import Wheel from './Wheel.vue'
 
@@ -205,7 +205,7 @@ const reconnecting = computed(() => conn.value?.live.status === 'reconnecting')
 
 const roundTag = computed(() => {
   const r = state.value?.settings.rounds
-  return r ? `OF ${r}` : 'ENDLESS'
+  return r ? `/${r}` : '/∞'
 })
 const inGame = computed(() => state.value && state.value.phase !== 'lobby')
 
@@ -218,7 +218,7 @@ start()
 
 <template>
   <div v-if="needsJoin" class="title">
-    <MuteButton class="corner" />
+    <CornerButtons class="corner" />
     <Marquee big />
     <PlayerForm :title="`Join room ${code}`" button="Join room" :busy="joining" :error="joinError" @submit="join" @back="emit('leave')" />
   </div>
@@ -227,11 +227,12 @@ start()
     <header class="header">
       <Marquee />
       <div class="hright">
-        <MuteButton />
+        <CornerButtons />
         <button class="helpbtn" title="How to play" @click="howto = true">?</button>
         <div class="badge"><small>ROOM</small><span class="disp">{{ state.code }}</span></div>
         <div v-if="inGame" class="badge">
-          <small>ROUND</small><span class="disp">{{ state.round }}</span><br /><span class="tag">{{ roundTag }}</span>
+          <small>ROUND</small>
+          <div class="badge-row"><span class="disp">{{ state.round }}</span><span class="disp of">{{ roundTag }}</span></div>
         </div>
         <HostMenu v-if="isHost" :state="state" :send="send" />
       </div>

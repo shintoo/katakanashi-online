@@ -1,4 +1,6 @@
 // Screen effects that live outside Vue: shouts, notices, sparks, confetti, flying cards.
+import { calm } from './motion'
+
 const wait = (ms) => new Promise((r) => setTimeout(r, ms))
 const FUN = ['#ffd23f', '#ff5fa2', '#3ec5ff', '#5ee07a', '#7b5cff']
 
@@ -29,6 +31,7 @@ export function notice(text, kind = '') {
 }
 
 export function burst(rect) {
+  if (calm.value) return
   const x = rect.left + rect.width / 2
   const y = rect.top + rect.height / 2
   for (let i = 0; i < 24; i++) {
@@ -41,6 +44,7 @@ export function burst(rect) {
 }
 
 export function confetti() {
+  if (calm.value) return
   for (let i = 0; i < 80; i++) {
     const c = el('confetti')
     c.style.cssText = `left:${Math.random() * 100}vw;background:${FUN[i % 5]};animation-duration:${2 + Math.random() * 2}s;animation-delay:${0.6 + Math.random()}s;border-radius:${i % 3 ? 2 : 50}px`
@@ -51,6 +55,10 @@ export function confetti() {
 // A small card back that flies from one box on screen to another.
 export function flyCard(from, to, { num = '', dur = 650, rot = 0, ease = 'cubic-bezier(.6,-0.4,.6,1)', fit = false } = {}) {
   if (!from || !to) return Promise.resolve()
+  if (calm.value) {
+    rot = 0
+    ease = 'ease-in-out'
+  }
   const c = el('cb small flying')
   c.innerHTML = `<div class="num">${num}</div>`
   Object.assign(c.style, {
@@ -69,6 +77,10 @@ export function flyCard(from, to, { num = '', dur = 650, rot = 0, ease = 'cubic-
 // Animate an element from where `from` was to where it is now, optionally spinning a 3D inner part.
 export function flipIn(target, inner, from) {
   if (!target || !from) return
+  if (calm.value) {
+    target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out' })
+    return
+  }
   target.style.transformOrigin = '0 0'
   target.style.transition = 'none'
   const to = target.getBoundingClientRect()

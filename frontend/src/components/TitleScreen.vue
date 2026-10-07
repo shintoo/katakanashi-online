@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { createRoom, roomInfo, saveProfile, saveSeat } from '../lib/api'
 import Marquee from './Marquee.vue'
-import MuteButton from './MuteButton.vue'
+import CornerButtons from './CornerButtons.vue'
 import PlayerForm from './PlayerForm.vue'
 
 defineProps({ message: String })
@@ -46,9 +46,11 @@ async function create(profile) {
 
 <template>
   <div class="title">
-    <MuteButton class="corner" />
+    <CornerButtons class="corner" />
     <Marquee big />
-    <div v-if="message" class="title-msg">{{ message }}</div>
+    <Transition name="title-msg">
+      <div v-if="message" class="title-msg">{{ message }}</div>
+    </Transition>
 
     <div v-if="step === 'home'" class="title-cards">
       <div class="panel tcard">
@@ -73,7 +75,9 @@ async function create(profile) {
 
 <style>
 .title { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; padding: 16px; }
-.title-msg { background: var(--ink); color: #fff; font-weight: 800; padding: 8px 18px; border-radius: 999px; }
+.title-msg { background: var(--ink); color: #fff; font-weight: 800; padding: 8px 18px; border-radius: 999px; max-height: 60px; }
+.title-msg-leave-active { transition: opacity 0.5s, max-height 0.4s 0.5s, padding 0.4s 0.5s, margin 0.4s 0.5s; overflow: hidden; }
+.title-msg-leave-to { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; margin-bottom: -40px; }
 .title-cards { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
 .tcard { width: 340px; display: flex; flex-direction: column; }
 .tcard:nth-child(2) { transform: rotate(1.5deg); }

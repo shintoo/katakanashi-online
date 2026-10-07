@@ -10,6 +10,7 @@ const code = ref(null)
 const message = ref('')
 const glow = ref(false)
 const portrait = usePortrait()
+let messageTimer
 
 function fromUrl() {
   const m = location.pathname.match(/^\/r\/([A-Za-z0-9]{4})\/?$/)
@@ -24,6 +25,8 @@ function enter(c) {
 
 function leave(msg = '') {
   message.value = msg
+  clearTimeout(messageTimer)
+  if (msg) messageTimer = setTimeout(() => (message.value = ''), 6000)
   history.pushState({}, '', '/')
   code.value = null
   glow.value = false
