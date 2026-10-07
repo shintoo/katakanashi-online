@@ -142,7 +142,6 @@ function draw() {
             <div class="side s1"><div class="q">?</div><b>分からない?</b><span>意味を表示</span></div>
             <div v-if="targetWord" class="side s2">
               <div class="kw jp">{{ targetWord[0] }}</div>
-              <div class="rom">{{ targetWord[1] }}</div>
               <div class="def">{{ targetWord[2] }}</div>
             </div>
           </div>
@@ -275,7 +274,6 @@ function draw() {
 .note .s1 b { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 22px; font-weight: 400; }
 .note .s2 { background: #c8f7ff; transform: rotateY(180deg); }
 .note .kw { font-size: 28px; font-weight: 800; }
-.note .rom { color: var(--purple); font-weight: 900; }
 .note .def { font-size: 17px; font-weight: 700; line-height: 1.3; margin-top: 6px; }
 .tape { position: absolute; top: -14px; left: 50%; width: 90px; height: 26px; margin-left: -45px; background: rgba(255, 255, 255, 0.7); border: 2px solid rgba(42, 31, 61, 0.3); transform: rotate(-4deg); z-index: 3; }
 .rule { margin-top: 16px; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 17px; background: var(--pink); color: #fff; border: 4px solid var(--ink); border-radius: 14px; padding: 6px 10px; text-align: center; box-shadow: 0 4px 0 var(--ink); transform: rotate(-2deg); }
