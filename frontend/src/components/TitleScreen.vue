@@ -84,5 +84,5 @@ async function create(profile) {
 .tcard:first-child { transform: rotate(-1.5deg); }
 .tcard p { flex: 1; }
 .tjoin { display: flex; gap: 10px; }
-.field.code { font-family: 'Lilita One'; font-size: 30px; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; }
+.field.code { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 30px; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; }
 </style>

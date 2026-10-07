@@ -40,7 +40,7 @@ with sync_playwright() as p:
     host.click("button:has-text('Create room')")
     host.wait_for_selector(".how")
     shot(host, "03-howto")
-    host.click("text=Got it, let's play!")
+    host.click("text=分かった、イコー!")
     host.wait_for_selector(".lob-code")
     code = host.inner_text(".lob-code").strip()
     print("room", code)
@@ -55,7 +55,7 @@ with sync_playwright() as p:
         fill_profile(g, nm, i + 1, i + 1)
         g.click("button:has-text('Join room')")
         g.wait_for_selector(".how")
-        g.click("text=Got it, let's play!")
+        g.click("text=分かった、イコー!")
         guests.append(g)
     host.wait_for_function("document.querySelectorAll('.lob-p:not(.ghost)').length === 3")
     host.click(".chip:has-text('Spin the wheel')")
@@ -64,13 +64,13 @@ with sync_playwright() as p:
     shot(host, "04-lobby-host")
     shot(guests[0], "05-lobby-guest")
 
-    host.click("text=Start game!")
+    host.click("text=スタート!")
     host.wait_for_selector(".wheelov")
     shot(guests[0], "06-wheel-guest")
     host.click("text=SPIN!")
     host.wait_for_timeout(5000)
     shot(host, "07-wheel-done")
-    host.click("text=START!")
+    host.click("text=スタート!")
     host.wait_for_selector(".wheelov", state="detached")
     pages = {"Sean": host, "Hana": guests[0], "Kenji": guests[1]}
 
@@ -93,7 +93,7 @@ with sync_playwright() as p:
             d.click(".note")
             d.wait_for_timeout(700)
             shot(d, "10-peek")
-            d.click("text=Nobody got it")
+            d.click("text=諦める")
         else:
             d.click(f".pod:has(.plate:text-is('{others[0]}'))")
         d.wait_for_timeout(1200)
@@ -131,7 +131,7 @@ with sync_playwright() as p:
     shot(pages[[n for n in pages if n != dn][0]], "16-timer-20")
     d.wait_for_timeout(14000)
     shot(d, "17-timer-low")
-    d.click("text=Nobody got it")
+    d.click("text=諦める")
     d.wait_for_timeout(1500)
 
     # Play out the rest so the game ends (5 rounds by default).

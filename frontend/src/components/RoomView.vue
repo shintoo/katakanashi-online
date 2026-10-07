@@ -64,7 +64,7 @@ function onEnd(reason) {
   forgetSeat(props.code)
   conn.value = null
   if (reason === 'unknown') needsJoin.value = true
-  else if (reason === 'removed') emit('leave', 'The host removed you from the room.')
+  else if (reason === 'removed') emit('leave', "Oh no, you've been kicked!")
   else emit('leave', 'This room is closed. Thanks for playing!')
 }
 
@@ -95,14 +95,14 @@ async function onEvent(e, s) {
       pod?.classList.remove('got')
       pod?.offsetWidth
       pod?.classList.add('got')
-      shout(['正解!', '頭いいね!', 'thugoi'][Math.floor(Math.random() * 3)])
+      shout(['セイカイ!', '頭イイね!', 'スゴイ!!1!'][Math.floor(Math.random() * 3)])
       break
     }
     case 'discarded': {
       const from = rectOf(handSel)
       leaving(handSel)
       await flyCard(from, rectOf('#discard'), { num: s.hand?.number ?? '', rot: 187, fit: true, ease: 'cubic-bezier(.4,0,.2,1)' })
-      notice('Nobody got it. The card goes to the discard pile.')
+      notice('みんなシッパイ・・・ The card goes to the discard pile.')
       break
     }
     case 'shuffled': {
@@ -127,13 +127,13 @@ async function onEvent(e, s) {
       setTimeout(() => shout(isMe(e.id) ? 'YOU FIRST!' : `${nameOf(e.id).toUpperCase()} FIRST!`), 150)
       break
     case 'round':
-      shout(`ROUND ${e.n}!`)
+      shout(`ラウンド ${e.n}!`)
       break
     case 'joined':
-      notice(`${e.name} joined the room.`)
+      notice(`${e.name}がトウジョウ.`)
       break
     case 'removed':
-      notice(`${e.name} was removed from the room.`)
+      notice(`${e.name}はキックされた！`)
       break
     case 'skipped':
       notice(`${e.name} is away, so their turn was skipped.`)
@@ -255,7 +255,7 @@ start()
 .wrap { position: relative; z-index: 1; height: 100%; display: grid; grid-template-rows: auto 1fr; }
 .header { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; position: relative; z-index: 10; }
 .hright { display: flex; align-items: center; gap: 16px; }
-.helpbtn { width: 48px; height: 48px; border-radius: 50%; border: 4px solid var(--ink); background: #fff; box-shadow: 0 4px 0 var(--ink); font-family: 'Lilita One'; font-size: 26px; padding: 0; }
+.helpbtn { width: 48px; height: 48px; border-radius: 50%; border: 4px solid var(--ink); background: #fff; box-shadow: 0 4px 0 var(--ink); font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 26px; padding: 0; }
 .loading { position: relative; z-index: 1; height: 100%; display: grid; place-items: center; font-size: 40px; color: #fff; -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; }
 .reconnect { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 90; background: var(--yellow); border: 4px solid var(--ink); border-radius: 999px; padding: 6px 18px; font-weight: 900; box-shadow: 0 4px 0 var(--ink); }
 </style>

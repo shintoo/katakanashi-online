@@ -62,7 +62,7 @@ function change(s) {
       <SettingsForm :model-value="settings" :readonly="!isHost" @update:model-value="change" />
       <div class="lob-start">
         <template v-if="isHost">
-          <button class="big" :disabled="state.players.length < 2" @click="send('start')">Start game!</button>
+          <button class="big" :disabled="state.players.length < 2" @click="send('start')">スタート!</button>
           <div v-if="state.players.length < 2" class="lob-hint">You need at least 2 players.</div>
         </template>
         <div v-else class="lob-wait">Waiting for {{ host?.name }} to start the game</div>

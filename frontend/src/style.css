@@ -14,14 +14,14 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body {
-  font-family: Nunito, system-ui, sans-serif;
+  font-family: Nunito, 'M PLUS Rounded 1c', system-ui, sans-serif;
   color: var(--ink);
   background: var(--table);
   overflow: hidden;
   transition: background 0.6s;
 }
 #app { height: 100%; }
-.disp { font-family: 'Lilita One', cursive; font-weight: 400; letter-spacing: 0.02em; }
+.disp { font-family: 'Lilita One', 'M PLUS Rounded 1c', cursive; font-weight: 400; letter-spacing: 0.02em; }
 .jp { font-family: 'M PLUS Rounded 1c', sans-serif; }
 button { font-family: inherit; color: inherit; cursor: pointer; }
 button:disabled { cursor: not-allowed; opacity: 0.45; }
@@ -29,7 +29,7 @@ input { font-family: inherit; color: inherit; }
 
 /* chunky buttons */
 .big {
-  font-family: 'Lilita One';
+  font-family: 'Lilita One', 'M PLUS Rounded 1c';
   font-size: 24px;
   border: 5px solid var(--ink);
   border-radius: 18px;
@@ -99,7 +99,7 @@ input { font-family: inherit; color: inherit; }
     repeating-radial-gradient(circle at 50% 50%, transparent 0 18px, rgba(0, 0, 0, 0.06) 18px 20px);
 }
 .cb .num {
-  font-family: 'Lilita One';
+  font-family: 'Lilita One', 'M PLUS Rounded 1c';
   font-size: 86px;
   color: var(--yellow);
   -webkit-text-stroke: 5px var(--ink);
@@ -128,7 +128,7 @@ input { font-family: inherit; color: inherit; }
 @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
 .shout {
   position: fixed; left: 50%; top: 30%; transform: translate(-50%, -50%) scale(0);
-  font-family: 'Lilita One'; font-size: 58px; color: var(--sc, #fff);
+  font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 58px; color: var(--sc, #fff);
   -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; text-shadow: 0 6px 0 var(--ink);
   z-index: 75; transition: transform 0.35s cubic-bezier(0.3, 1.8, 0.5, 1), opacity 0.2s; pointer-events: none; white-space: nowrap; opacity: 0;
 }

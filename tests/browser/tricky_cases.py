@@ -38,7 +38,7 @@ def fill_profile(page, name, i):
 
 def dismiss_howto(page):
     page.wait_for_selector(".how")
-    page.click("text=Got it, let's play!")
+    page.click("text=分かった、イコー!")
 
 
 with sync_playwright() as p:
@@ -89,7 +89,7 @@ with sync_playwright() as p:
     shot(host, "03-lobby-8")
     shot(pages["Aoi"], "04-lobby-guest")
 
-    host.click("text=Start game!")
+    host.click("text=スタート!")
     host.wait_for_selector(".pod")
     host.wait_for_timeout(800)
 
@@ -104,7 +104,7 @@ with sync_playwright() as p:
         d.wait_for_selector("#hand")
         d.wait_for_timeout(900)
         if miss:
-            d.click("text=Nobody got it")
+            d.click("text=諦める")
         else:
             other = next(n for n in pages if n != dn)
             d.click(f".pod:has(.plate:text-is('{other}'))")

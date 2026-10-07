@@ -40,16 +40,16 @@ const name = (p) => (p ? p.name.toUpperCase() : '')
 const watchTitle = computed(() => {
   const d = describer.value
   if (props.state.phase === 'round_end') return 'ROUND OVER'
-  if (hand.value) return `${name(d)} IS DESCRIBING`
+  if (hand.value) return `${name(d)}のセツメイを聞いて`
   return `${name(d)} IS ABOUT TO DRAW`
 })
 const watchSub = computed(() => {
   if (props.state.phase === 'round_end') return isHost.value ? 'Next round, or end game?' : 'Waiting for the host'
   if (hand.value) return '推測して！'
-  if (!describer.value || describer.value.connected) return 'Get ready to guess'
+  if (!describer.value || describer.value.connected) return '準備はイイ？'
   return `Waiting for ${describer.value.name} to come back...`
 })
-const drawLabel = computed(() => (isDescriber.value ? 'Your turn: draw!' : `${describer.value?.name} draws next`))
+const drawLabel = computed(() => (isDescriber.value ? 'Your turn: 引いて!' : `${describer.value?.name}のバン`))
 
 // Keep the desks in a gentle arc and shrink the row when there are lots of players.
 const width = ref(window.innerWidth)
@@ -76,9 +76,9 @@ function draw() {
       <div class="spot"></div>
 
       <div v-if="state.phase === 'round_end'" class="roundover">
-        <div class="ro-title disp">ROUND {{ state.round }} COMPLETE!</div>
+        <div class="ro-title disp">ラウンド{{ state.round }}終了!</div>
         <template v-if="isHost">
-          <div class="ro-sub">You're the host. Keep going, or wrap it up?</div>
+          <div class="ro-sub">You're the host. Keep going, or end the game?</div>
           <div class="btns">
             <button class="big" @click="send('next_round')">Next round</button>
             <button class="big alt" @click="send('end_game')">End game</button>
@@ -139,15 +139,15 @@ function draw() {
         <div class="sticky" :class="{ on: hand && revealed }">
           <div class="tape"></div>
           <div class="note" :class="{ flip: peek }" @click="peek = !peek">
-            <div class="side s1"><div class="q">?</div><b>Don't know it?</b><span>Tap to peek at the meaning</span></div>
+            <div class="side s1"><div class="q">?</div><b>分からない?</b><span>意味を表示</span></div>
             <div v-if="targetWord" class="side s2">
               <div class="kw jp">{{ targetWord[0] }}</div>
               <div class="rom">{{ targetWord[1] }}</div>
               <div class="def">{{ targetWord[2] }}</div>
             </div>
           </div>
-          <div class="rule">NO KATAKANA ALLOWED!</div>
-          <button class="pass" @click="send('give', { to: null })">Nobody got it</button>
+          <div class="rule">カタカナ禁止!</div>
+          <button class="pass" @click="send('give', { to: null })">諦める</button>
         </div>
       </template>
 
@@ -206,10 +206,10 @@ function draw() {
 #deckTop.reveal .num { color: #fff; transform: scale(1.35) rotate(-8deg); }
 #deckTop.reveal::after { content: ''; position: absolute; inset: -5px; border-radius: 20px; border: 6px solid #fff; animation: ping 1s infinite; }
 @keyframes ping { to { transform: scale(1.25); opacity: 0; } }
-.decktag { font-family: 'Lilita One'; font-size: 17px; background: var(--ink); color: #fff; border-radius: 12px; padding: 2px 14px; white-space: nowrap; }
+.decktag { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 17px; background: var(--ink); color: #fff; border-radius: 12px; padding: 2px 14px; white-space: nowrap; }
 .decktag.light { background: #fff; color: var(--ink); border: 3px solid var(--ink); }
 .drawme {
-  position: absolute; top: -58px; left: 50%; transform: translateX(-50%); font-family: 'Lilita One'; font-size: 21px;
+  position: absolute; top: -58px; left: 50%; transform: translateX(-50%); font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 21px;
   background: var(--green); border: 4px solid var(--ink); border-radius: 14px; padding: 2px 14px; box-shadow: 0 4px 0 var(--ink);
   animation: hop 1s ease-in-out infinite; white-space: nowrap; z-index: 3;
 }
@@ -222,18 +222,18 @@ function draw() {
 .cardcol { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .slot {
   position: relative; width: 260px; height: 364px; border-radius: 22px; border: 5px dashed rgba(42, 31, 61, 0.3); display: grid; place-items: center;
-  font-family: 'Lilita One'; font-size: 20px; color: rgba(42, 31, 61, 0.4); text-align: center; padding: 30px;
+  font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 20px; color: rgba(42, 31, 61, 0.4); text-align: center; padding: 30px;
 }
 .hand { position: absolute; inset: -5px; perspective: 1400px; z-index: 5; }
 .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
 .f { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 22px; }
 .f.back { transform: rotateY(180deg); }
 .front { background: var(--paper); border: 5px solid var(--ink); box-shadow: 0 8px 0 var(--ink); padding: 12px; display: flex; flex-direction: column; gap: 6px; color: var(--ink); }
-.front .head { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-family: 'Lilita One'; font-size: 15px; }
+.front .head { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 15px; }
 .front .head .jp { background: var(--blue); border: 3px solid var(--ink); border-radius: 10px; padding: 0 8px; font-size: 12px; white-space: nowrap; }
 .words { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; flex: 1; text-align: left; }
 .words li { flex: 1; display: flex; align-items: center; gap: 10px; border: 3px solid var(--ink); border-radius: 12px; padding: 0 10px; font-size: 19px; font-weight: 800; background: #fff; transition: all 0.4s; }
-.words .n { font-family: 'Lilita One'; font-size: 20px; width: 22px; color: var(--purple); }
+.words .n { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 20px; width: 22px; color: var(--purple); }
 .words li.hl { background: var(--yellow); transform: scale(1.1); box-shadow: 0 4px 0 var(--ink); z-index: 2; }
 .words li.hl::after {
   content: ''; margin-left: auto; width: 16px; height: 16px; background: var(--pink);
@@ -247,7 +247,7 @@ function draw() {
   position: absolute; inset: 0 auto 0 0; background-color: var(--green); transition: width 0.25s linear, background 0.3s;
   background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.3) 0 10px, transparent 10px 20px);
 }
-.tbar .tnum { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-family: 'Lilita One'; font-size: 20px; }
+.tbar .tnum { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 20px; }
 .t-warn .tbar .fill { background-color: var(--yellow); }
 .t-low .tbar .fill { background-color: var(--red); }
 .t-low .tbar { animation: shake 0.3s infinite; }
@@ -258,7 +258,7 @@ function draw() {
   width: 200px; height: 200px; border-radius: 50%; border: 6px solid var(--ink); box-shadow: 0 8px 0 var(--ink);
   background: conic-gradient(var(--green) calc(var(--p) * 1%), #fff 0); display: grid; place-items: center; transition: background 0.3s;
 }
-.bigclock span { width: 130px; height: 130px; border-radius: 50%; background: #fff; border: 5px solid var(--ink); display: grid; place-items: center; font-family: 'Lilita One'; font-size: 60px; }
+.bigclock span { width: 130px; height: 130px; border-radius: 50%; background: #fff; border: 5px solid var(--ink); display: grid; place-items: center; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 60px; }
 .bigclock.idle { background: #fff; }
 .t-warn .bigclock { background: conic-gradient(var(--yellow) calc(var(--p) * 1%), #fff 0); }
 .t-low .bigclock { background: conic-gradient(var(--red) calc(var(--p) * 1%), #fff 0); animation: shake 0.3s infinite; }
@@ -271,14 +271,14 @@ function draw() {
 .note.flip { transform: rotateY(180deg); }
 .note .side { position: absolute; inset: 0; backface-visibility: hidden; border: 4px solid var(--ink); padding: 18px 16px; box-shadow: 0 6px 0 var(--ink); }
 .note .s1 { background: #fff59d; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; }
-.note .s1 .q { font-family: 'Lilita One'; font-size: 64px; line-height: 1; color: var(--purple); -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; }
-.note .s1 b { font-family: 'Lilita One'; font-size: 22px; font-weight: 400; }
+.note .s1 .q { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 64px; line-height: 1; color: var(--purple); -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; }
+.note .s1 b { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 22px; font-weight: 400; }
 .note .s2 { background: #c8f7ff; transform: rotateY(180deg); }
 .note .kw { font-size: 28px; font-weight: 800; }
 .note .rom { color: var(--purple); font-weight: 900; }
 .note .def { font-size: 17px; font-weight: 700; line-height: 1.3; margin-top: 6px; }
 .tape { position: absolute; top: -14px; left: 50%; width: 90px; height: 26px; margin-left: -45px; background: rgba(255, 255, 255, 0.7); border: 2px solid rgba(42, 31, 61, 0.3); transform: rotate(-4deg); z-index: 3; }
-.rule { margin-top: 16px; font-family: 'Lilita One'; font-size: 17px; background: var(--pink); color: #fff; border: 4px solid var(--ink); border-radius: 14px; padding: 6px 10px; text-align: center; box-shadow: 0 4px 0 var(--ink); transform: rotate(-2deg); }
+.rule { margin-top: 16px; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 17px; background: var(--pink); color: #fff; border: 4px solid var(--ink); border-radius: 14px; padding: 6px 10px; text-align: center; box-shadow: 0 4px 0 var(--ink); transform: rotate(-2deg); }
 .pass { margin-top: 12px; width: 100%; font-weight: 900; background: #fff; border: 4px solid var(--ink); border-radius: 14px; padding: 6px; box-shadow: 0 4px 0 var(--ink); }
 
 .roundover {

@@ -41,7 +41,7 @@ const result = computed(() => {
 <template>
   <div class="ov wheelov">
     <div class="wheelbox">
-      <h2>Who goes first?</h2>
+      <h2>サイショは誰?</h2>
       <div class="wheelarea">
         <div class="pointer"></div>
         <div class="wheel" :class="{ still: !animate }" :style="{ background, transform: `rotate(${angle}deg)` }">
@@ -54,7 +54,7 @@ const result = computed(() => {
       <div class="result">{{ result || '\u00a0' }}</div>
       <div v-if="isHost" class="btns">
         <button v-if="!wheel?.winner" class="big" @click="send('spin')">SPIN!</button>
-        <button v-else class="big" :disabled="!done" @click="send('begin')">START!</button>
+        <button v-else class="big" :disabled="!done" @click="send('begin')">スタート!</button>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ const result = computed(() => {
 <style>
 .wheelov { background: rgba(42, 31, 61, 0.45); }
 .wheelbox { display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.wheelbox h2 { margin: 0; font-family: 'Lilita One'; font-weight: 400; font-size: 46px; color: #fff; -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 5px 0 var(--ink); }
+.wheelbox h2 { margin: 0; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-weight: 400; font-size: 46px; color: #fff; -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 5px 0 var(--ink); }
 .wheelarea { position: relative; width: 400px; height: 400px; }
 .pointer { position: absolute; top: -24px; left: 50%; margin-left: -22px; width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-top: 44px solid var(--ink); z-index: 3; }
 .pointer::after { content: ''; position: absolute; left: -14px; top: -40px; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 28px solid var(--yellow); }
@@ -72,6 +72,6 @@ const result = computed(() => {
 .wheel .lab { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
 .wheel .lab > span { position: absolute; top: -128px; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; font-weight: 900; font-size: 18px; white-space: nowrap; }
 .wheel .lab .mini { width: 54px; height: 54px; }
-.hub { position: absolute; left: 50%; top: 50%; width: 70px; height: 70px; margin: -35px; border-radius: 50%; background: var(--yellow); border: 6px solid var(--ink); z-index: 2; display: grid; place-items: center; font-family: 'Lilita One'; font-size: 20px; }
-.result { font-family: 'Lilita One'; font-size: 30px; color: #fff; -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; min-height: 40px; }
+.hub { position: absolute; left: 50%; top: 50%; width: 70px; height: 70px; margin: -35px; border-radius: 50%; background: var(--yellow); border: 6px solid var(--ink); z-index: 2; display: grid; place-items: center; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 20px; }
+.result { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 30px; color: #fff; -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; min-height: 40px; }
 </style>

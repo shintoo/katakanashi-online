@@ -34,7 +34,7 @@ const ORD = ['', '1st', '2nd', '3rd']
 const ordinal = (n) => ORD[n] || `${n}th`
 const tieLine = computed(() => {
   const score = groups.value[0]?.score
-  return score ? `${cards(score)} each. Everybody wins!` : 'Nobody got a single card. Everybody wins anyway!'
+  return score ? `${cards(score)} each. Everybody wins!` : 'Nobody got a single card. Wow. Everybody wins anyway!'
 })
 const dropDelay = (g, i) => `${0.3 * (4 - g.place) + i * 0.12}s`
 const hopDelay = (i) => `${1.6 + i * 0.15}s`
@@ -109,7 +109,7 @@ onMounted(confetti)
 
 <style>
 .endbox { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.endtitle { font-family: 'Lilita One'; font-size: 56px; transform: rotate(-2deg); color: #fff; -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 5px 0 var(--ink); }
+.endtitle { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 56px; transform: rotate(-2deg); color: #fff; -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 0 5px 0 var(--ink); }
 .podium { display: flex; align-items: flex-end; gap: 16px; justify-content: center; margin-top: 10px; }
 .step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .folks { display: flex; gap: 8px; justify-content: center; }
@@ -122,7 +122,7 @@ onMounted(confetti)
 .step.crowd .who { font-size: 14px; padding: 0 6px; }
 .step .block {
   position: relative; width: 100%; border: 5px solid var(--ink); border-bottom: 0; border-radius: 16px 16px 0 0; display: flex; flex-direction: column; align-items: center; padding-top: 8px;
-  font-family: 'Lilita One'; font-size: 54px; line-height: 1; color: #fff; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink);
+  font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 54px; line-height: 1; color: #fff; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink);
   background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.25) 0 10px, transparent 10px 20px);
 }
 .step .block small { margin-top: 6px; font-family: inherit; font-size: 14px; letter-spacing: 0.03em; color: var(--ink); -webkit-text-stroke: 0; text-shadow: none; background: rgba(255, 255, 255, 0.85); border-radius: 999px; padding: 2px 10px; }

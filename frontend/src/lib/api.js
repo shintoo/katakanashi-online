@@ -5,7 +5,7 @@ async function call(method, path, body) {
     body: body ? JSON.stringify(body) : undefined,
   })
   const data = await res.json().catch(() => ({}))
-  if (!res.ok) throw new Error(data.detail || 'Something went wrong. Try again?')
+  if (!res.ok) throw new Error(data.detail || 'Something went wrong. Try again? (or ask Sean)')
   return data
 }
 

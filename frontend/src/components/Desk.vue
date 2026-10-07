@@ -31,7 +31,7 @@ const fan = computed(() => Math.min(props.player.score, 5))
   >
     <div class="lift">
       <div v-if="holding" class="held"><div class="cb small"><div class="num">{{ heldNumber }}</div></div></div>
-      <div class="give">GIVE CARD</div>
+      <div class="give">与える</div>
       <svg class="sh-desk" viewBox="0 0 180 112">
         <ellipse cx="90" cy="108" rx="78" ry="6" fill="#2a1f3d" opacity=".25" />
         <path d="M16 24 L164 24 L152 106 L28 106 Z" :fill="c" stroke="#2a1f3d" stroke-width="4" stroke-linejoin="round" />
@@ -69,7 +69,7 @@ const fan = computed(() => Math.min(props.player.score, 5))
 .pod.describer .plate { background: var(--yellow); }
 .pod.me .plate { outline: 3px dashed #fff; outline-offset: 2px; }
 .score {
-  font-family: 'Lilita One'; text-align: center; left: 50%; transform: translateX(-50%); bottom: 10px; z-index: 3;
+  font-family: 'Lilita One', 'M PLUS Rounded 1c'; text-align: center; left: 50%; transform: translateX(-50%); bottom: 10px; z-index: 3;
   font-size: 34px; line-height: 1.15; color: #ffea7a; background: var(--ink); border-radius: 12px; min-width: 64px; padding: 0 14px;
   text-shadow: 0 0 10px #ffd23f;
 }
@@ -85,7 +85,7 @@ const fan = computed(() => Math.min(props.player.score, 5))
 @keyframes hold { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(5deg) translateY(-5px); } }
 .give {
   display: none; left: 50%; transform: translateX(-50%); bottom: 174px; background: var(--green); border: 3px solid var(--ink);
-  border-radius: 10px; font-family: 'Lilita One'; font-size: 16px; padding: 1px 10px; z-index: 7; white-space: nowrap; box-shadow: 0 3px 0 var(--ink);
+  border-radius: 10px; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 16px; padding: 1px 10px; z-index: 7; white-space: nowrap; box-shadow: 0 3px 0 var(--ink);
 }
 .pod.target:hover .give { display: block; }
 @media (hover: none) { .pod.target .give { display: block; bottom: 84px; } }
