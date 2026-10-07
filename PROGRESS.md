@@ -48,8 +48,9 @@ Mockups live in `mockups/`:
 
 ## Next up
 
-1. User playtests with friends and gives feedback. Includes trying it on real phones (iPhone and Android), since phone support was only tested in a pretend-phone browser.
-2. Custom player and UI icons.
+1. User re-tries the phone fixes on a real Android phone (and an iPhone if possible). They were only tested in a pretend phone.
+2. User playtests with friends and gives feedback.
+3. Custom player and UI icons.
 
 ## Feedback and decisions waiting to be built
 
@@ -90,7 +91,12 @@ These stay true for the whole project.
 - **The server is the referee.** It holds the deck, the turn order, and the timer. Browsers only send requests ("I drew", "give the card to X"). The server checks them and tells everyone the result.
 - **Each player gets their own view.** The server builds what each player sees, so only the describer ever receives the card's words.
 - Rooms live in the server's memory for now. Add SQLite only when we need it.
-- **Phones get the desktop layout, shrunk.** `frontend/src/lib/mobile.js` tells touch screens to act like a screen at least 1180x720 and lets the browser shrink it. Don't design separate phone layouts; keep new screens working at 1180x720. Things that only show on mouse hover need a touch version (`@media (hover: none)`).
+- **Phones get the desktop layout, shrunk.** Everything is drawn inside `#stage`, which is at least 1180x720 and gets shrunk with a CSS scale to fit the screen (`frontend/src/lib/mobile.js`). We can't use the viewport tag for this, because Chrome ignores it in full screen. Don't design separate phone layouts; keep new screens working at 1180x720. Because of the shrinking:
+  - Measure boxes with `stageRect()` / `rectOf()`, not `getBoundingClientRect()` directly, and add effects to `#stage`.
+  - Use `var(--sw)` / `var(--sh)` (the stage size) instead of `vw` / `vh`, and `stage.w` instead of `window.innerWidth`.
+  - Anything that could be taller than 720 needs to scroll (overlays and the title screen already do).
+  - Things that only show on mouse hover need a touch version (`@media (hover: none)`).
+- **Text fields use our own keyboard on touch screens.** Mark new text inputs with `v-kb` and `data-kb-label` (and `data-kb="code"` for room codes). The phone's keyboard never opens.
 - **Only ever run one copy of the server.** Rooms live in memory, so a second copy wouldn't know about the first one's rooms. Keep `numInstances: 1` in `render.yaml`.
 - **New animations need a calm version.** When motion is off, `<html>` has the `calm` class (`frontend/src/lib/motion.js`). Anything that loops, spins or bounces gets a `.calm` rule at the bottom of `style.css`, and JS effects check `calm.value`.
 
@@ -114,3 +120,4 @@ These stay true for the whole project.
 - **2026-10-06:** Title screen messages (like "This room is closed") fade away after 6 seconds. New "motion off" button next to the mute button: stops the spinning background and wobbling shapes and every other looping bounce/shake, skips sparkles and confetti, cards slide straight with no spinning, the drawn card fades in instead of flipping, and the first-player wheel turns once instead of seven times. Remembered by the browser; starts on if the device asks for reduced motion.
 - **2026-10-06:** The ROUND badge in the room header is now the same height as the ROOM badge: it now reads like "3/5" (a smaller, faded "/5" beside the number, or "/∞" for endless) instead of having an "OF 5" pill underneath.
 - **2026-10-06:** Flavor text pass. All the game's flavor text is listed in `docs/flavor-text.md` (by screen, with IDs). The user rewrote a lot of it with playful Japanese, mixing in katakana (スタート!, カタカナ禁止!, セイカイ!, and so on), and it's now in the game. The title font (Lilita One) has no Japanese letters, so every place it's used now falls back to M PLUS Rounded 1c for Japanese. The peek sticky note no longer shows romaji, just the word and its meaning.
+- **2026-10-07:** Phone fixes from the user's Android screenshots. The game was zoomed in because Chrome ignores the viewport tag in full screen, so the game is now drawn on a stage and shrunk with CSS instead. The title screen, popups and lobby scroll when they don't fit. New in-game keyboard for touch screens (ABC, カナ with a ゛゜小 key, and a room-code pad that only allows letter-number-letter-number), so the phone's keyboard never opens.

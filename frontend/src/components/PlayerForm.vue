@@ -24,7 +24,7 @@ function submit() {
       <div class="pf-preview"><Avatar :icon="{ shape, color }" /></div>
       <div class="pf-fields">
         <label class="pf-label" for="pname">Your name</label>
-        <input id="pname" v-model="name" class="field" maxlength="14" autocomplete="off" placeholder="Hana" autofocus />
+        <input id="pname" v-model="name" v-kb data-kb="text" data-kb-label="Your name" class="field" maxlength="14" autocomplete="off" placeholder="Hana" autofocus />
         <div class="pf-label">Face</div>
         <div class="pf-shapes">
           <button v-for="s in ICON_SHAPES" :key="s" type="button" class="pf-pick" :class="{ on: shape === s - 1 }" @click="shape = s - 1">

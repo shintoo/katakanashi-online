@@ -21,6 +21,10 @@ body {
   transition: background 0.6s;
 }
 #app { height: 100%; }
+#stage {
+  position: fixed; left: 0; top: 0; width: var(--sw, 100vw); height: var(--sh, 100vh);
+  transform: scale(var(--scale, 1)); transform-origin: 0 0; overflow: hidden; overflow: clip;
+}
 .disp { font-family: 'Lilita One', 'M PLUS Rounded 1c', cursive; font-weight: 400; letter-spacing: 0.02em; }
 .jp { font-family: 'M PLUS Rounded 1c', sans-serif; }
 button { font-family: inherit; color: inherit; cursor: pointer; }
@@ -64,7 +68,7 @@ input { font-family: inherit; color: inherit; }
 .badge .disp.of { font-size: 18px; opacity: 0.5; }
 
 /* overlays and panels */
-.ov { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; background: rgba(42, 31, 61, 0.6); }
+.ov { position: fixed; inset: 0; z-index: 70; display: grid; place-items: safe center; padding: 16px 0 26px; overflow-y: auto; background: rgba(42, 31, 61, 0.6); }
 .panel {
   background: var(--paper);
   border: 5px solid var(--ink);
@@ -72,7 +76,7 @@ input { font-family: inherit; color: inherit; }
   box-shadow: 0 10px 0 var(--ink);
   padding: 24px 30px;
   animation: pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
-  max-width: calc(100vw - 32px);
+  max-width: calc(var(--sw) - 32px);
 }
 @keyframes pop { from { transform: scale(0.7); opacity: 0; } }
 .panel h3 { margin: 0 0 4px; font-size: 32px; }
@@ -125,7 +129,7 @@ input { font-family: inherit; color: inherit; }
   position: fixed; top: -20px; width: 12px; height: 18px; border: 2px solid var(--ink);
   z-index: 80; animation: fall linear forwards; pointer-events: none;
 }
-@keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+@keyframes fall { to { transform: translateY(calc(var(--sh) * 1.1)) rotate(720deg); } }
 .shout {
   position: fixed; left: 50%; top: 30%; transform: translate(-50%, -50%) scale(0);
   font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 58px; color: var(--sc, #fff);
@@ -136,7 +140,7 @@ input { font-family: inherit; color: inherit; }
 .notice {
   position: fixed; left: 50%; top: 112px; transform: translate(-50%, -20px); opacity: 0;
   background: var(--ink); color: #fff; font-weight: 800; padding: 8px 18px; border-radius: 999px;
-  z-index: 76; transition: all 0.3s; pointer-events: none; max-width: calc(100vw - 32px); text-align: center;
+  z-index: 76; transition: all 0.3s; pointer-events: none; max-width: calc(var(--sw) - 32px); text-align: center;
 }
 .notice.on { transform: translate(-50%, 0); opacity: 1; }
 .notice.bad { background: var(--red); border: 3px solid var(--ink); }
@@ -145,7 +149,7 @@ input { font-family: inherit; color: inherit; }
 .calm #burst, .calm #bg .shape, .calm #edge.on,
 .calm .held .cb, .calm .pod.target .lift, .calm .bulb, .calm .pod.got .score,
 .calm .drawme, .calm #deckTop.reveal::after, .calm .words li.hl::after, .calm .deck.shuffling .l1, .calm .deck.shuffling .l2,
-.calm .t-low .tbar, .calm .t-low .bigclock, .calm .pf-preview, .calm .podium.everyone .avatar {
+.calm .t-low .tbar, .calm .t-low .bigclock, .calm .pf-preview, .calm .kb-caret, .calm .podium.everyone .avatar {
   animation: none;
 }
 .calm #edge.on { opacity: 0.7; }

@@ -1,10 +1,11 @@
 // Screen effects that live outside Vue: shouts, notices, sparks, confetti, flying cards.
 import { calm } from './motion'
+import { stageRect } from './mobile'
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms))
 const FUN = ['#ffd23f', '#ff5fa2', '#3ec5ff', '#5ee07a', '#7b5cff']
 
-function el(cls, parent = document.body) {
+function el(cls, parent = document.getElementById('stage') ?? document.body) {
   const d = document.createElement('div')
   d.className = cls
   parent.appendChild(d)
@@ -47,7 +48,7 @@ export function confetti() {
   if (calm.value) return
   for (let i = 0; i < 80; i++) {
     const c = el('confetti')
-    c.style.cssText = `left:${Math.random() * 100}vw;background:${FUN[i % 5]};animation-duration:${2 + Math.random() * 2}s;animation-delay:${0.6 + Math.random()}s;border-radius:${i % 3 ? 2 : 50}px`
+    c.style.cssText = `left:${Math.random() * 100}%;background:${FUN[i % 5]};animation-duration:${2 + Math.random() * 2}s;animation-delay:${0.6 + Math.random()}s;border-radius:${i % 3 ? 2 : 50}px`
     setTimeout(() => c.remove(), 5000)
   }
 }
@@ -83,7 +84,7 @@ export function flipIn(target, inner, from) {
   }
   target.style.transformOrigin = '0 0'
   target.style.transition = 'none'
-  const to = target.getBoundingClientRect()
+  const to = stageRect(target)
   target.style.transform = `translate(${from.left - to.left}px,${from.top - to.top}px) scale(${from.width / to.width})`
   if (inner) {
     inner.style.transition = 'none'
@@ -98,5 +99,5 @@ export function flipIn(target, inner, from) {
   }
 }
 
-export const rectOf = (sel) => document.querySelector(sel)?.getBoundingClientRect()
+export const rectOf = (sel) => stageRect(document.querySelector(sel))
 export { wait }

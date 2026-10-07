@@ -33,5 +33,5 @@ defineProps({ big: Boolean })
     var(--d) var(--d) 0 var(--kana-blue);
 }
 .marquee.big { padding: 10px 40px 20px; background-size: 40px 40px; background-position: 0 0, 20px 20px; }
-.marquee.big h1 { --d: 9px; font-size: clamp(44px, 12vw, 92px); }
+.marquee.big h1 { --d: 9px; font-size: clamp(44px, calc(var(--sw) * 0.12), 92px); }
 </style>

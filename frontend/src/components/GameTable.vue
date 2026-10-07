@@ -1,6 +1,7 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import Desk from './Desk.vue'
+import { stage } from '../lib/mobile'
 
 const props = defineProps({ state: Object, remaining: Number, send: Function })
 
@@ -52,14 +53,8 @@ const watchSub = computed(() => {
 const drawLabel = computed(() => (isDescriber.value ? 'Your turn: 引いて!' : `${describer.value?.name}のバン`))
 
 // Keep the desks in a gentle arc and shrink the row when there are lots of players.
-const width = ref(window.innerWidth)
-const onResize = () => (width.value = window.innerWidth)
-onMounted(() => window.addEventListener('resize', onResize))
-onUnmounted(() => {
-  window.removeEventListener('resize', onResize)
-  clearTimeout(revealTimer)
-})
-const podZoom = computed(() => Math.min(1, (width.value - 40) / (players.value.length * 206)))
+onUnmounted(() => clearTimeout(revealTimer))
+const podZoom = computed(() => Math.min(1, (stage.w - 40) / (players.value.length * 206)))
 function offset(i) {
   const half = (players.value.length - 1) / 2
   return half ? ((i - half) / half) * Math.min(half, 2) : 0

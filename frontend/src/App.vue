@@ -4,7 +4,8 @@ import Backdrop from './components/Backdrop.vue'
 import RotateHint from './components/RotateHint.vue'
 import RoomView from './components/RoomView.vue'
 import TitleScreen from './components/TitleScreen.vue'
-import { usePortrait } from './lib/mobile'
+import Keyboard from './components/Keyboard.vue'
+import { isTouch, usePortrait } from './lib/mobile'
 
 const code = ref(null)
 const message = ref('')
@@ -41,8 +42,11 @@ onUnmounted(() => window.removeEventListener('popstate', fromUrl))
 </script>
 
 <template>
-  <Backdrop :glow="glow" />
-  <RoomView v-if="code" :key="code" :code="code" @leave="leave" @glow="glow = $event" />
-  <TitleScreen v-else :message="message" @enter="enter" />
+  <div id="stage">
+    <Backdrop :glow="glow" />
+    <RoomView v-if="code" :key="code" :code="code" @leave="leave" @glow="glow = $event" />
+    <TitleScreen v-else :message="message" @enter="enter" />
+    <Keyboard v-if="isTouch" />
+  </div>
   <RotateHint v-if="portrait" />
 </template>

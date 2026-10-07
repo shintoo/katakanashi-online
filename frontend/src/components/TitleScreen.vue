@@ -62,7 +62,7 @@ async function create(profile) {
         <h3 class="disp">Join a game</h3>
         <p>Got a room code from a friend? Type it here.</p>
         <div class="tjoin">
-          <input v-model="code" class="field code" maxlength="4" placeholder="A1B2" autocomplete="off" />
+          <input v-model="code" v-kb data-kb="code" data-kb-label="Room code" class="field code" maxlength="4" placeholder="A1B2" autocomplete="off" />
           <button class="big yellow" :disabled="busy || !code.trim()">Join</button>
         </div>
         <p v-if="error" class="pf-error">{{ error }}</p>
@@ -74,7 +74,8 @@ async function create(profile) {
 </template>
 
 <style>
-.title { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; padding: 16px; }
+.title { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: safe center; gap: 40px; padding: 16px 16px 32px; overflow-y: auto; }
+.title > * { flex: none; }
 .title-msg { background: var(--ink); color: #fff; font-weight: 800; padding: 8px 18px; border-radius: 999px; max-height: 60px; }
 .title-msg-leave-active { transition: opacity 0.5s, max-height 0.4s 0.5s, padding 0.4s 0.5s, margin 0.4s 0.5s; overflow: hidden; }
 .title-msg-leave-to { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; margin-bottom: -40px; }

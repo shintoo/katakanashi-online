@@ -30,7 +30,7 @@ const emit = defineEmits(['close'])
 </template>
 
 <style>
-.how { width: min(640px, 92vw); }
+.how { width: min(640px, calc(var(--sw) * 0.92)); }
 .how h3 { margin-bottom: 16px; }
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .stepc { border: 3px solid var(--ink); border-radius: 16px; padding: 16px 12px; background: #fff; box-shadow: 3px 3px 0 var(--ink); text-align: center; }
