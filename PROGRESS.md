@@ -42,6 +42,7 @@ Mockups live in `mockups/`:
 - [x] End screen: podium with the top 3, then Play again (same room, new settings) or Close room
 - [x] Word list: a simple placeholder set for now, the real one later
 - [ ] Custom player icons and UI icons, chosen when joining
+- [x] Background music with a mute button
 - [x] Put it online somewhere friends can reach
 - [x] Playable on phones (sideways, desktop layout shrunk to fit)
 
@@ -108,3 +109,4 @@ These stay true for the whole project.
 - **2026-10-06:** Room codes now go letter-number-letter-number (like K7P3) so they can't spell rude words. No I/O/0/1, since they look alike.
 - **2026-10-06:** New logo based on the カタカナーシ 2 box (`docs/katakanashi-2-box.jpg`): the word カタカナーシ on one line, green with a blue 3D shadow, on a lemon-yellow panel with white polka dots. Dropped the English "KATAKANASHI!" and the light bulbs. The favicon now matches: a green カ with a blue shadow on the same dotted yellow.
 - **2026-10-06:** Phone support. Phones show the desktop layout shrunk to fit (pretend 1180x720 or wider). Held upright, they show a "Turn your phone sideways!" screen. On Android, the first tap goes full screen and locks sideways; iPhones can't do that from a web page, but adding the game to the home screen opens it full screen (new app manifest and icons). "GIVE CARD" labels always show on touch screens, since there's no hover. Tested in a pretend iPhone browser only.
+- **2026-10-06:** Background music: the user's ~18s loop (made in `../bgm-maker`) plays on repeat with no gap, starting on the first tap or key press (browsers block sound before that). Shrunk from a 3.2 MB wav to a 440 KB mp3 (`frontend/src/assets/bgm.mp3`). A speaker button mutes it: next to "?" in the room header, and in the top-right corner of the title and join screens. The browser remembers if you muted. Music pauses when the tab is hidden.

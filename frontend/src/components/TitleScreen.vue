@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { createRoom, roomInfo, saveProfile, saveSeat } from '../lib/api'
 import Marquee from './Marquee.vue'
+import MuteButton from './MuteButton.vue'
 import PlayerForm from './PlayerForm.vue'
 
 defineProps({ message: String })
@@ -45,6 +46,7 @@ async function create(profile) {
 
 <template>
   <div class="title">
+    <MuteButton class="corner" />
     <Marquee big />
     <div v-if="message" class="title-msg">{{ message }}</div>
 

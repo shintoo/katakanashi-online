@@ -9,6 +9,7 @@ import HostMenu from './HostMenu.vue'
 import HowToPlay from './HowToPlay.vue'
 import Lobby from './Lobby.vue'
 import Marquee from './Marquee.vue'
+import MuteButton from './MuteButton.vue'
 import PlayerForm from './PlayerForm.vue'
 import Wheel from './Wheel.vue'
 
@@ -217,6 +218,7 @@ start()
 
 <template>
   <div v-if="needsJoin" class="title">
+    <MuteButton class="corner" />
     <Marquee big />
     <PlayerForm :title="`Join room ${code}`" button="Join room" :busy="joining" :error="joinError" @submit="join" @back="emit('leave')" />
   </div>
@@ -225,6 +227,7 @@ start()
     <header class="header">
       <Marquee />
       <div class="hright">
+        <MuteButton />
         <button class="helpbtn" title="How to play" @click="howto = true">?</button>
         <div class="badge"><small>ROOM</small><span class="disp">{{ state.code }}</span></div>
         <div v-if="inGame" class="badge">
