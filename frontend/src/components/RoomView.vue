@@ -102,7 +102,7 @@ async function onEvent(e, s) {
       const from = rectOf(handSel)
       leaving(handSel)
       await flyCard(from, rectOf('#discard'), { num: s.hand?.number ?? '', rot: 187, fit: true, ease: 'cubic-bezier(.4,0,.2,1)' })
-      notice('みんなシッパイ・・・ The card goes to the discard pile.')
+      notice('みんなシッパイ・・・')
       break
     }
     case 'shuffled': {

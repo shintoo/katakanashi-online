@@ -155,7 +155,7 @@ with sync_playwright() as p:
     host.click("text=Play again")
     shot(host, "20-play-again")
     host.click(".chip:has-text('Host goes first')")
-    host.click("text=Start new game")
+    host.click("text=レッツゴー！")
     host.wait_for_timeout(1200)
     shot(guests[0], "21-new-game")
 

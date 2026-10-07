@@ -50,7 +50,7 @@ const watchSub = computed(() => {
   if (!describer.value || describer.value.connected) return '準備はイイ？'
   return `Waiting for ${describer.value.name} to come back...`
 })
-const drawLabel = computed(() => (isDescriber.value ? 'Your turn: 引いて!' : `${describer.value?.name}のバン`))
+const drawLabel = computed(() => (isDescriber.value ? 'Your turn!' : `${describer.value?.name}さんのバン`))
 
 // Keep the desks in a gentle arc and shrink the row when there are lots of players.
 onUnmounted(() => clearTimeout(revealTimer))

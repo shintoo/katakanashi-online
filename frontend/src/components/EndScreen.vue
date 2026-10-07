@@ -85,11 +85,10 @@ onMounted(confetti)
     </div>
 
     <div v-else class="panel settings">
-      <h3 class="disp">New game, same room</h3>
-      <p>Pick your settings. Everyone stays in the room.</p>
+      <h3 class="disp">New game</h3>
       <SettingsForm v-model="settings" />
       <div class="btns">
-        <button class="big" :disabled="state.players.length < 2" @click="send('start', { settings })">Start new game</button>
+        <button class="big" :disabled="state.players.length < 2" @click="send('start', { settings })">レッツゴー！</button>
         <button class="big alt" @click="choosing = false">Back</button>
       </div>
     </div>
