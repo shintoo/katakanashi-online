@@ -196,9 +196,8 @@ function draw() {
 .deck.shuffling .l2 { animation: shufR 0.25s 3; }
 @keyframes shufL { 50% { transform: translate(-40px, 12px) rotate(-8deg); } }
 @keyframes shufR { 50% { transform: translate(40px, 6px) rotate(8deg); } }
-#deckTop.reveal { background-color: var(--yellow); }
 #deckTop.reveal .num { color: #fff; transform: scale(1.35) rotate(-8deg); }
-#deckTop.reveal::after { content: ''; position: absolute; inset: -5px; border-radius: 20px; border: 6px solid #fff; animation: ping 1s infinite; }
+#deckTop.reveal::before { content: ''; position: absolute; inset: -5px; border-radius: 20px; border: 6px solid #fff; animation: ping 1s infinite; }
 @keyframes ping { to { transform: scale(1.25); opacity: 0; } }
 .decktag { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 17px; background: var(--ink); color: #fff; border-radius: 12px; padding: 2px 14px; white-space: nowrap; }
 .decktag.light { background: #fff; color: var(--ink); border: 3px solid var(--ink); }

@@ -88,35 +88,59 @@ input { font-family: inherit; color: inherit; }
   text-shadow: 0 5px 0 var(--ink);
 }
 
-/* card back */
+/* card back, after the real card: pink number in a dotted sunburst, logo at the bottom */
 .cb {
+  --cb-yellow: #e9f23a;
+  --cb-pink: #f0559e;
+  --cb-blue: #1d93c2;
   position: absolute;
   inset: 0;
+  container-type: size;
   border-radius: 20px;
   border: 5px solid var(--ink);
-  background-color: var(--orange);
+  background: url('./assets/card-rays.svg') center / 100% 100% no-repeat, var(--cb-yellow);
   display: grid;
   place-items: center;
   overflow: hidden;
-  background-image:
-    radial-gradient(circle at 50% 50%, transparent 52px, rgba(255, 255, 255, 0.25) 53px 62px, transparent 63px),
-    repeating-radial-gradient(circle at 50% 50%, transparent 0 18px, rgba(0, 0, 0, 0.06) 18px 20px);
 }
 .cb .num {
-  font-family: 'Lilita One', 'M PLUS Rounded 1c';
-  font-size: 86px;
-  color: var(--yellow);
-  -webkit-text-stroke: 5px var(--ink);
+  --d: 3.5cqw;
+  margin: -18cqh 0 0 -3cqw;
+  font-family: Nunito, 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 800;
+  font-size: 72cqw;
+  line-height: 1;
+  color: var(--cb-pink);
+  -webkit-text-stroke: 1.6cqw var(--cb-blue);
   paint-order: stroke fill;
-  text-shadow: 0 5px 0 var(--ink);
+  text-shadow:
+    calc(var(--d) * 0.25) calc(var(--d) * 0.25) 0 var(--cb-blue),
+    calc(var(--d) * 0.5) calc(var(--d) * 0.5) 0 var(--cb-blue),
+    calc(var(--d) * 0.75) calc(var(--d) * 0.75) 0 var(--cb-blue),
+    var(--d) var(--d) 0 var(--cb-blue);
   transition: transform 0.4s cubic-bezier(0.3, 1.8, 0.5, 1);
 }
-.cb.small {
-  border-width: 3px;
-  border-radius: 10px;
-  background-image: repeating-radial-gradient(circle at 50% 50%, transparent 0 7px, rgba(0, 0, 0, 0.07) 7px 8px);
+.cb::after {
+  --d: 1.3cqw;
+  content: 'カタカナーシ';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8cqh;
+  text-align: center;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 800;
+  font-size: 12.5cqw;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: #fff;
+  -webkit-text-stroke: 0.4cqw var(--cb-blue);
+  paint-order: stroke fill;
+  text-shadow:
+    calc(var(--d) * 0.5) calc(var(--d) * 0.5) 0 var(--cb-blue),
+    var(--d) var(--d) 0 var(--cb-blue);
 }
-.cb.small .num { font-size: 30px; -webkit-text-stroke: 3px var(--ink); text-shadow: 0 2px 0 var(--ink); }
+.cb.small { border-width: 3px; border-radius: 10px; }
 .cb.flying { position: fixed; right: auto; bottom: auto; z-index: 58; }
 
 /* effects */
@@ -148,7 +172,7 @@ input { font-family: inherit; color: inherit; }
 /* calm mode: nothing loops, spins or bounces */
 .calm #burst, .calm #bg .shape, .calm #edge.on,
 .calm .held .cb, .calm .pod.target .lift, .calm .bulb, .calm .pod.got .score,
-.calm .drawme, .calm #deckTop.reveal::after, .calm .words li.hl::after, .calm .deck.shuffling .l1, .calm .deck.shuffling .l2,
+.calm .drawme, .calm #deckTop.reveal::before, .calm .words li.hl::after, .calm .deck.shuffling .l1, .calm .deck.shuffling .l2,
 .calm .t-low .tbar, .calm .t-low .bigclock, .calm .pf-preview, .calm .kb-caret, .calm .podium.everyone .avatar {
   animation: none;
 }
