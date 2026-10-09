@@ -41,16 +41,13 @@ Mockups live in `mockups/`:
 - [x] Host menu: table color, fix a mistake, end game (between rounds), close room
 - [x] End screen: podium with the top 3, then Play again (same room, new settings) or Close room
 - [x] Word list: a simple placeholder set for now, the real one later
-- [ ] Custom player icons and UI icons, chosen when joining
 - [x] Background music with a mute button
 - [x] Put it online somewhere friends can reach
 - [x] Playable on phones (sideways, desktop layout shrunk to fit)
 
 ## Next up
 
-1. User re-tries the phone fixes on a real Android phone (and an iPhone if possible). They were only tested in a pretend phone.
-2. User playtests with friends and gives feedback.
-3. Custom player and UI icons.
+Nothing on the list right now.
 
 ## Feedback and decisions waiting to be built
 
