@@ -41,7 +41,7 @@ const name = (p) => (p ? p.name.toUpperCase() : '')
 const watchTitle = computed(() => {
   const d = describer.value
   if (props.state.phase === 'round_end') return 'ROUND OVER'
-  if (hand.value) return `${name(d)}のセツメイを聞いて`
+  if (hand.value) return `${name(d)}さんのセツメイを聞いて`
   return `${name(d)} IS ABOUT TO DRAW`
 })
 const watchSub = computed(() => {
@@ -110,7 +110,6 @@ function draw() {
             <div v-if="hand" id="hand" class="hand">
               <div id="handInner" class="inner">
                 <div class="f front">
-                  <div class="head"><span class="jp">カタカナシ</span></div>
                   <ol class="words jp">
                     <li
                       v-for="(w, i) in hand.words"
@@ -221,13 +220,22 @@ function draw() {
 .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
 .f { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 22px; }
 .f.back { transform: rotateY(180deg); }
-.front { background: var(--paper); border: 5px solid var(--ink); box-shadow: 0 8px 0 var(--ink); padding: 12px; display: flex; flex-direction: column; gap: 6px; color: var(--ink); }
-.front .head { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 15px; }
-.front .head .jp { background: var(--blue); border: 3px solid var(--ink); border-radius: 10px; padding: 0 8px; font-size: 12px; white-space: nowrap; }
-.words { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; flex: 1; text-align: left; }
-.words li { flex: 1; display: flex; align-items: center; gap: 10px; border: 3px solid var(--ink); border-radius: 12px; padding: 0 10px; font-size: 19px; font-weight: 800; background: #fff; transition: all 0.4s; }
-.words .n { font-family: 'Lilita One', 'M PLUS Rounded 1c'; font-size: 20px; width: 22px; color: var(--purple); }
-.words li.hl { background: var(--yellow); transform: scale(1.1); box-shadow: 0 4px 0 var(--ink); z-index: 2; }
+.front {
+  --cf-green: #74d17f; --cf-blue: #4fb3c9; --cf-ink: #4a4141;
+  background: #f1f0e9; border: 5px solid var(--ink); box-shadow: 0 8px 0 var(--ink); padding: 10px 14px; display: flex; flex-direction: column; color: var(--cf-ink);
+}
+.words { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; flex: 1; text-align: left; }
+.words li { position: relative; flex: 1; display: flex; align-items: center; gap: 10px; border-radius: 12px; padding: 0 8px; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; transition: all 0.4s; }
+.words li + li::before {
+  content: ''; position: absolute; top: 0; left: 6px; right: 6px; height: 4px; transition: opacity 0.4s;
+  background: radial-gradient(circle, var(--cf-green) 1.1px, transparent 1.6px) left center / 6px 4px repeat-x;
+}
+.words .n {
+  font-family: Nunito, 'M PLUS Rounded 1c', sans-serif; font-weight: 900; font-size: 28px; line-height: 1; width: 20px; flex: none; color: var(--cf-green);
+  text-shadow: 1px 1.5px 0 var(--cf-blue);
+}
+.words li.hl { background: var(--yellow); outline: 3px solid var(--ink); transform: scale(1.1); box-shadow: 0 4px 0 var(--ink); z-index: 2; }
+.words li.hl::before, .words li.hl + li::before { opacity: 0; }
 .words li.hl::after {
   content: ''; margin-left: auto; width: 16px; height: 16px; background: var(--pink);
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: spin 3s linear infinite;
