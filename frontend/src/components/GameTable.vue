@@ -231,11 +231,9 @@ function draw() {
   background: radial-gradient(circle, var(--cf-green) 1.1px, transparent 1.6px) left center / 6px 4px repeat-x;
 }
 .words .n {
-  font-family: Nunito, 'M PLUS Rounded 1c', sans-serif; font-weight: 900; font-size: 28px; line-height: 1; width: 20px; flex: none; color: var(--cf-green);
+  font-family: Nunito, 'M PLUS Rounded 1c', sans-serif; font-weight: 900; font-size: 34px; line-height: 1; width: 24px; flex: none; color: var(--cf-green);
   text-shadow: 1px 1.5px 0 var(--cf-blue);
 }
-.words li.hl { background: var(--yellow); outline: 3px solid var(--ink); transform: scale(1.1); box-shadow: 0 4px 0 var(--ink); z-index: 2; }
-.words li.hl::before, .words li.hl + li::before { opacity: 0; }
 .words li.hl::after {
   content: ''; margin-left: auto; width: 16px; height: 16px; background: var(--pink);
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: spin 3s linear infinite;
